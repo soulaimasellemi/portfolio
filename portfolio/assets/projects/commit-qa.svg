@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" font-family="ui-monospace, 'JetBrains Mono', monospace">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#241d29"/><stop offset="1" stop-color="#16121a"/>
+    </linearGradient>
+    <pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.4" fill="#33293a"/></pattern>
+    <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#e2a6c3"/></marker>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <rect width="1200" height="675" fill="url(#dots)"/>
+
+  <!-- git graph -->
+  <line x1="130" y1="190" x2="130" y2="560" stroke="#e2a6c3" stroke-width="5"/>
+  <path d="M130 260 C190 260 200 300 200 340 V420 C200 460 180 480 130 490" fill="none" stroke="#c9b8e8" stroke-width="5"/>
+  <circle cx="130" cy="190" r="14" fill="#e2a6c3"/><circle cx="130" cy="260" r="14" fill="#e2a6c3"/>
+  <circle cx="200" cy="360" r="14" fill="#c9b8e8"/><circle cx="200" cy="420" r="14" fill="#c9b8e8"/>
+  <circle cx="130" cy="380" r="14" fill="#e2a6c3"/><circle cx="130" cy="490" r="14" fill="#e2a6c3"/><circle cx="130" cy="560" r="14" fill="#e2a6c3"/>
+  <text x="235" y="197" fill="#e8c9a0" font-size="18">a3f9c1e</text>
+  <text x="235" y="367" fill="#e8c9a0" font-size="18">7be02d4</text>
+  <text x="235" y="567" fill="#e8c9a0" font-size="18">e41c9aa</text>
+  <text x="165" y="620" fill="#b0a4b0" font-size="20" text-anchor="middle">Git history</text>
+
+  <!-- function units -->
+  <line x1="340" y1="375" x2="400" y2="375" stroke="#e2a6c3" stroke-width="3" marker-end="url(#ar)"/>
+  <rect x="415" y="215" width="260" height="320" rx="16" fill="#272030" stroke="#4a3e50" stroke-width="2"/>
+  <text x="440" y="255" fill="#c9b8e8" font-size="18">def <tspan fill="#f2ecf1">parse_diff</tspan>():</text>
+  <rect x="465" y="270" width="160" height="9" rx="4" fill="#5f5266"/><rect x="465" y="290" width="120" height="9" rx="4" fill="#5f5266"/>
+  <line x1="435" y1="315" x2="655" y2="315" stroke="#4a3e50" stroke-width="2" stroke-dasharray="6 6"/>
+  <text x="440" y="350" fill="#c9b8e8" font-size="18">def <tspan fill="#f2ecf1">rank_hits</tspan>():</text>
+  <rect x="465" y="365" width="170" height="9" rx="4" fill="#5f5266"/><rect x="465" y="385" width="90" height="9" rx="4" fill="#5f5266"/>
+  <line x1="435" y1="410" x2="655" y2="410" stroke="#4a3e50" stroke-width="2" stroke-dasharray="6 6"/>
+  <text x="440" y="445" fill="#c9b8e8" font-size="18">class <tspan fill="#f2ecf1">Indexer</tspan>:</text>
+  <rect x="465" y="460" width="140" height="9" rx="4" fill="#5f5266"/><rect x="465" y="480" width="110" height="9" rx="4" fill="#5f5266"/>
+  <text x="545" y="580" fill="#b0a4b0" font-size="20" text-anchor="middle">Function-level units</text>
+
+  <!-- hybrid search -->
+  <line x1="690" y1="375" x2="745" y2="375" stroke="#e2a6c3" stroke-width="3" marker-end="url(#ar)"/>
+  <rect x="760" y="260" width="150" height="70" rx="14" fill="#332a45" stroke="#c9b8e8" stroke-width="2"/>
+  <text x="835" y="302" fill="#f2ecf1" font-size="20" text-anchor="middle">BM25</text>
+  <rect x="760" y="420" width="150" height="70" rx="14" fill="#332a45" stroke="#c9b8e8" stroke-width="2"/>
+  <text x="835" y="462" fill="#f2ecf1" font-size="20" text-anchor="middle">Embeddings</text>
+  <path d="M910 295 C950 295 950 375 985 375 M910 455 C950 455 950 375 985 375" fill="none" stroke="#e2a6c3" stroke-width="3"/>
+  <circle cx="1000" cy="375" r="18" fill="#e2a6c3"/>
+  <text x="1000" y="382" fill="#2a1320" font-size="20" font-weight="700" text-anchor="middle">+</text>
+  <text x="835" y="535" fill="#b0a4b0" font-size="20" text-anchor="middle">Hybrid search</text>
+
+  <!-- answer -->
+  <rect x="925" y="170" width="235" height="62" rx="14" fill="#2b2231" stroke="#e2a6c3" stroke-width="2"/>
+  <text x="945" y="200" fill="#f2ecf1" font-size="16">Changed in</text>
+  <text x="945" y="222" fill="#e8c9a0" font-size="16">7be02d4 ↗</text>
+  <path d="M1000 355 V245" stroke="#e2a6c3" stroke-width="3" stroke-dasharray="8 8" marker-end="url(#ar)"/>
+
+  <text x="70" y="95" fill="#f2ecf1" font-size="40" font-weight="700" font-family="Inter, system-ui, sans-serif">Commit History Q&amp;A</text>
+  <text x="70" y="135" fill="#e2a6c3" font-size="22">RAG over Git · answers cite commit hashes</text>
+</svg>
