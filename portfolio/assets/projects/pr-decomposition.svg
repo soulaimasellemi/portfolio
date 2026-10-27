@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" font-family="ui-monospace, 'JetBrains Mono', monospace">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#241d29"/><stop offset="1" stop-color="#16121a"/>
+    </linearGradient>
+    <pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.4" fill="#33293a"/></pattern>
+    <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#e2a6c3"/></marker>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <rect width="1200" height="675" fill="url(#dots)"/>
+
+  <!-- large pull request -->
+  <rect x="70" y="180" width="250" height="330" rx="18" fill="#272030" stroke="#e2a6c3" stroke-width="3"/>
+  <text x="95" y="215" fill="#f2ecf1" font-size="17">PR #4821</text>
+  <text x="215" y="215" fill="#e8c9a0" font-size="15">+1,284 −612</text>
+  <g>
+    <rect x="95" y="240" width="190" height="9" rx="4" fill="#5f5266"/>
+    <rect x="95" y="260" width="150" height="9" rx="4" fill="#c9b8e8"/>
+    <rect x="95" y="280" width="200" height="9" rx="4" fill="#e2a6c3"/>
+    <rect x="95" y="300" width="120" height="9" rx="4" fill="#5f5266"/>
+    <rect x="95" y="320" width="175" height="9" rx="4" fill="#e8c9a0"/>
+    <rect x="95" y="340" width="160" height="9" rx="4" fill="#c9b8e8"/>
+    <rect x="95" y="360" width="195" height="9" rx="4" fill="#5f5266"/>
+    <rect x="95" y="380" width="140" height="9" rx="4" fill="#e2a6c3"/>
+    <rect x="95" y="400" width="185" height="9" rx="4" fill="#e8c9a0"/>
+    <rect x="95" y="420" width="130" height="9" rx="4" fill="#5f5266"/>
+    <rect x="95" y="440" width="170" height="9" rx="4" fill="#c9b8e8"/>
+    <rect x="95" y="460" width="150" height="9" rx="4" fill="#e2a6c3"/>
+  </g>
+  <text x="195" y="550" fill="#b0a4b0" font-size="20" text-anchor="middle">Large, tangled PR</text>
+
+  <!-- taxonomy router -->
+  <line x1="335" y1="345" x2="405" y2="345" stroke="#e2a6c3" stroke-width="3" marker-end="url(#ar)"/>
+  <rect x="420" y="245" width="270" height="200" rx="18" fill="#2b2231" stroke="#c9b8e8" stroke-width="2"/>
+  <text x="555" y="285" fill="#f2ecf1" font-size="19" text-anchor="middle">Taxonomy router</text>
+  <rect x="445" y="305" width="220" height="34" rx="8" fill="#332a45"/><text x="555" y="327" fill="#c9b8e8" font-size="14" text-anchor="middle">why developers split</text>
+  <rect x="445" y="349" width="220" height="34" rx="8" fill="#332a45"/><text x="555" y="371" fill="#c9b8e8" font-size="14" text-anchor="middle">how they split</text>
+  <text x="555" y="420" fill="#b0a4b0" font-size="15" text-anchor="middle">multi-agent LLM</text>
+  <text x="555" y="485" fill="#b0a4b0" font-size="20" text-anchor="middle">Why &amp; how to split</text>
+
+  <!-- small reviewable changes -->
+  <path d="M705 345 C760 345 760 225 815 225" fill="none" stroke="#e2a6c3" stroke-width="3" marker-end="url(#ar)"/>
+  <line x1="705" y1="345" x2="815" y2="345" stroke="#e2a6c3" stroke-width="3" marker-end="url(#ar)"/>
+  <path d="M705 345 C760 345 760 465 815 465" fill="none" stroke="#e2a6c3" stroke-width="3" marker-end="url(#ar)"/>
+  <g font-size="15">
+    <rect x="830" y="190" width="300" height="70" rx="14" fill="#2b2231" stroke="#e2a6c3" stroke-width="2"/>
+    <text x="852" y="222" fill="#f2ecf1">Change 1</text><text x="852" y="245" fill="#e8c9a0">+210 −180</text>
+    <rect x="830" y="310" width="300" height="70" rx="14" fill="#2b2231" stroke="#e2a6c3" stroke-width="2"/>
+    <text x="852" y="342" fill="#f2ecf1">Change 2</text><text x="852" y="365" fill="#e8c9a0">+890 −312</text>
+    <rect x="830" y="430" width="300" height="70" rx="14" fill="#2b2231" stroke="#e2a6c3" stroke-width="2"/>
+    <text x="852" y="462" fill="#f2ecf1">Change 3</text><text x="852" y="485" fill="#e8c9a0">+184 −120</text>
+  </g>
+  <text x="980" y="550" fill="#b0a4b0" font-size="20" text-anchor="middle">Reviewable changes</text>
+
+  <!-- result bar -->
+  <rect x="70" y="585" width="1060" height="56" rx="14" fill="#2b2231" stroke="#4a3e50" stroke-width="2"/>
+  <text x="95" y="620" fill="#f2ecf1" font-size="18">Accuracy on real Gerrit splits: <tspan fill="#b0a4b0">Atomizer 65.0%</tspan>  →  <tspan fill="#e2a6c3" font-weight="700">taxonomy-routed 72.4%</tspan></text>
+
+  <text x="70" y="95" fill="#f2ecf1" font-size="38" font-weight="700" font-family="Inter, system-ui, sans-serif">Decomposing Large Pull Requests</text>
+  <text x="70" y="135" fill="#e2a6c3" font-size="22">AI R&amp;D · Larodec Lab · Summer 2026</text>
+</svg>

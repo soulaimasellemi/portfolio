@@ -303,7 +303,9 @@ h1 { font-size: clamp(2.4rem, 6vw, 3.8rem); line-height: 1.08; letter-spacing: -
 
 /* ============ PROJECT CARDS (home) ============ */
 .section-intro { color: var(--muted); margin: -24px 0 32px; }
-.p-grid { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
+.p-grid { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.case-link { display: inline-block; margin-top: 18px; font-weight: 600; font-size: 14px; color: var(--accent); }
+.case-link:hover { text-decoration: underline; }
 .p-card {
   display: flex; flex-direction: column; height: 100%;
   background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
@@ -347,7 +349,7 @@ h1 { font-size: clamp(2.4rem, 6vw, 3.8rem); line-height: 1.08; letter-spacing: -
 .steps li::before { content: counter(step); display: grid; place-items: center; width: 40px; height: 40px; border-radius: 10px; background: var(--accent-soft); color: var(--accent); font-family: "JetBrains Mono", monospace; font-weight: 600; }
 .steps h3 { font-size: 1rem; margin-bottom: 4px; }
 .steps p { font-size: 15px; }
-.d-metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px; }
+.d-metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; }
 .d-metrics div { padding: 18px; border: 1px solid var(--border); border-radius: 12px; background: var(--card); }
 .d-metrics strong { display: block; font-size: 1.6rem; color: var(--accent); font-weight: 800; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
 .d-metrics span { font-size: 13.5px; color: var(--muted); }
