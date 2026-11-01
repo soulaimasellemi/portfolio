@@ -19,26 +19,44 @@
       var t = localStorage.getItem("theme");
       if (t) document.documentElement.setAttribute("data-theme", t);
     } catch (e) {}
+    try {
+      var l = localStorage.getItem("lang");
+      if (!l) l = (navigator.language || "en").toLowerCase().indexOf("fr") === 0 ? "fr" : "en";
+      document.documentElement.lang = l;
+    } catch (e) {}
   </script>
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to main content</a>
-  <!-- ========== NAV ========== -->
+  <a class="skip-link" href="#main" data-i18n="a11y.skip">Skip to main content</a>
+  <!-- ========== TOP BAR ========== -->
   <header class="nav" id="top">
     <div class="container nav-inner">
-      <a href="#top" class="logo" aria-label="Soulaima Sellemi, back to top"><span class="logo-mark" aria-hidden="true">SS</span><span class="logo-text">soulaima<span class="accent">.dev</span></span></a>
+      <a href="#top" class="logo" aria-label="Soulaima Sellemi">
+        <span class="logo-mark" aria-hidden="true">SS</span>
+        <span class="logo-full" aria-hidden="true">Soulaima <span class="accent">Sellemi</span></span>
+      </a>
       <nav class="nav-links" id="navLinks" aria-label="Main">
-        <a href="#about">About</a>
-        <a href="#experience">Research</a>
-        <a href="#projects">Projects</a>
-        <a href="#skills">Skills</a>
-        <a href="#contact">Contact</a>
+        <a href="#about" data-i18n="nav.about">About</a>
+        <a href="#experience" data-i18n="nav.research">Research</a>
+        <a href="#projects" data-i18n="nav.projects">Projects</a>
+        <a href="#skills" data-i18n="nav.skills">Skills</a>
+        <a href="#contact" data-i18n="nav.contact">Contact</a>
       </nav>
       <div class="nav-actions">
+        <div class="lang-switch" role="group" aria-label="Language / Langue">
+          <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+          <button type="button" data-lang="en" aria-pressed="true" lang="en">EN</button>
+          <button type="button" data-lang="fr" aria-pressed="false" lang="fr">FR</button>
+        </div>
         <button class="icon-btn" id="themeToggle" type="button" aria-label="Switch to light mode">
           <svg aria-hidden="true" focusable="false" class="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
           <svg aria-hidden="true" focusable="false" class="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
         </button>
+        <a class="btn btn-primary btn-sm cv-btn" href="assets/Soulaima_Sellemi_CV.pdf" target="_blank" rel="noopener">
+          <span class="cv-label" data-i18n="cta.cv">Download CV</span>
+          <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M12 3v12m0 0-4-4m4 4 4-4M5 21h14"/></svg>
+          <span class="sr-only" data-i18n="a11y.newtab"> (opens in a new tab)</span>
+        </a>
         <button class="icon-btn menu-btn" id="menuBtn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="navLinks">
           <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
         </button>
@@ -46,126 +64,192 @@
     </div>
   </header>
 
+  <!-- ========== SIDE RAIL (desktop) ========== -->
+  <nav class="rail" id="rail" aria-label="Sections">
+    <a href="#top" data-target="top">
+      <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>
+      <span class="rail-tip" data-i18n="nav.home">Home</span>
+    </a>
+    <a href="#about" data-target="about">
+      <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+      <span class="rail-tip" data-i18n="nav.about">About</span>
+    </a>
+    <a href="#experience" data-target="experience">
+      <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M9 3h6M10 3v6L4.5 18.5A1.7 1.7 0 0 0 6 21h12a1.7 1.7 0 0 0 1.5-2.5L14 9V3"/><path d="M7.5 15h9"/></svg>
+      <span class="rail-tip" data-i18n="nav.research">Research</span>
+    </a>
+    <a href="#projects" data-target="projects">
+      <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+      <span class="rail-tip" data-i18n="nav.projects">Projects</span>
+    </a>
+    <a href="#skills" data-target="skills">
+      <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M4 6h9M19 6h1M4 12h3M13 12h7M4 18h11M21 18h-1"/><circle cx="16" cy="6" r="2.5"/><circle cx="10" cy="12" r="2.5"/><circle cx="18" cy="18" r="2.5"/></svg>
+      <span class="rail-tip" data-i18n="nav.skills">Skills</span>
+    </a>
+    <a href="#contact" data-target="contact">
+      <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+      <span class="rail-tip" data-i18n="nav.contact">Contact</span>
+    </a>
+  </nav>
+
   <main id="main" tabindex="-1">
     <!-- ========== HERO ========== -->
-    <section class="hero">
+    <section class="hero" id="home">
       <div class="container hero-grid">
-        <div class="hero-text reveal">
-          <p class="badge"><span class="dot" aria-hidden="true"></span> Open to a PFE internship · 2027</p>
-          <h1>Soulaima Sellemi</h1>
-          <p class="role mono">AI Engineer <span class="muted">—</span> LLM Agents &amp; Deep Learning</p>
-          <p class="lead">I turn promising AI research into tools people can actually trust: multi-agent LLM pipelines, RAG systems and deep-learning models, evaluated on real-world data — not just benchmarks.</p>
+        <div class="hero-text">
+          <p class="hello" data-i18n="hero.hello">Hello, I'm</p>
+          <h1>Soulaima<br />Sellemi</h1>
+          <p class="role" data-i18n="hero.role">AI engineering student, final year</p>
+          <p class="school" data-i18n="hero.school">Software Engineering · ENSI, University of Manouba</p>
+          <p class="focus-line" data-i18n="hero.focus">LLM agents <span aria-hidden="true">·</span> RAG <span aria-hidden="true">·</span> Deep learning <span aria-hidden="true">·</span> MLOps</p>
+          <p class="lead" data-i18n="hero.lead">I turn promising AI research into tools people can trust: multi-agent LLM pipelines, RAG systems and deep-learning models, evaluated on real-world data.</p>
+          <div class="pfe-card">
+            <span class="dot" aria-hidden="true"></span>
+            <div>
+              <strong data-i18n="hero.pfeTitle">Looking for a PFE internship</strong>
+              <span data-i18n="hero.pfeSub">End-of-studies project · 2027 · AI / LLM engineering</span>
+            </div>
+          </div>
           <div class="cta">
-            <a class="btn btn-primary" href="assets/Soulaima_Sellemi_CV.pdf" target="_blank" rel="noopener">
-              <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M12 3v12m0 0-4-4m4 4 4-4M5 21h14"/></svg> Download CV
-            <span class="sr-only"> (opens in a new tab)</span></a>
-            <a class="btn btn-ghost" href="#contact">Get in touch</a>
+            <a class="spin-cta" href="#projects">
+              <svg class="spin-ring" viewBox="0 0 120 120" aria-hidden="true" focusable="false">
+                <defs><path id="spinPath" d="M60 60 m-46 0 a46 46 0 1 1 92 0 a46 46 0 1 1 -92 0"/></defs>
+                <text><textPath href="#spinPath" textLength="285" lengthAdjust="spacing" data-i18n="hero.spin">EXPLORE MY PROJECTS • EXPLORE MY PROJECTS •</textPath></text>
+              </svg>
+              <span class="spin-core" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M12 5v14m0 0-6-6m6 6 6-6"/></svg>
+              </span>
+              <span class="sr-only" data-i18n="hero.spinLabel">Explore my projects</span>
+            </a>
+            <a class="text-link" href="#contact"><span data-i18n="cta.contact">Get in touch</span> <span aria-hidden="true">→</span></a>
           </div>
           <div class="socials">
             <a href="https://github.com/soulaimasellemi" target="_blank" rel="noopener" aria-label="GitHub">
               <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" class="fill"><path d="M12 .5a11.5 11.5 0 0 0-3.6 22.4c.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0C17.3 4.8 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.9 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.2c0 .3.2.7.8.6A11.5 11.5 0 0 0 12 .5z"/></svg>
-            <span class="sr-only"> (opens in a new tab)</span></a>
+            <span class="sr-only" data-i18n="a11y.newtab"> (opens in a new tab)</span></a>
             <a href="https://linkedin.com/in/sellemi-soulaima" target="_blank" rel="noopener" aria-label="LinkedIn">
               <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" class="fill"><path d="M20.4 20.5h-3.6v-5.6c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9v5.7H9.3V9h3.4v1.6h.1c.5-.9 1.6-1.8 3.4-1.8 3.6 0 4.3 2.4 4.3 5.5v6.2zM5.3 7.4a2.1 2.1 0 1 1 0-4.2 2.1 2.1 0 0 1 0 4.2zm1.8 13.1H3.5V9h3.6v11.5zM22.2 0H1.8C.8 0 0 .8 0 1.7v20.6c0 .9.8 1.7 1.8 1.7h20.4c1 0 1.8-.8 1.8-1.7V1.7C24 .8 23.2 0 22.2 0z"/></svg>
-            <span class="sr-only"> (opens in a new tab)</span></a>
-            <a href="mailto:soulaima.sellemi@ensi-uma.tn" aria-label="Email">
+            <span class="sr-only" data-i18n="a11y.newtab"> (opens in a new tab)</span></a>
+            <a href="mailto:soulaima.sellemi@ensi-uma.tn" aria-label="Email" data-i18n-aria="aria.email">
               <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
             </a>
           </div>
         </div>
 
-        <!-- Terminal card -->
-        <div class="terminal reveal" aria-hidden="true">
-          <div class="term-bar"><span></span><span></span><span></span><p class="mono">~/soulaima — python</p></div>
-          <pre class="mono term-body"><span class="c-k">from</span> soulaima <span class="c-k">import</span> Engineer
-
-me = Engineer(
-    school=<span class="c-s">"ENSI · Software Eng."</span>,
-    focus=[<span class="c-s">"LLM agents"</span>, <span class="c-s">"RAG"</span>,
-           <span class="c-s">"Deep learning"</span>],
-    lab=<span class="c-s">"Larodec"</span>,
-)
-
-me.results()
-<span class="c-o">→ PR untangling: 65.0% → 72.4% acc</span>
-<span class="c-o">→ Skin lesions:  97.0% Dice (PH2)</span>
-<span class="c-o">→ Gerrit mined:  937,327 changes</span>
-
-me.status
-<span class="c-o">→ "Seeking PFE internship"</span><span class="cursor">▍</span></pre>
+        <!-- Hanging ID badge: drag to swing, click or use the button to flip -->
+        <div class="badge-wrap">
+          <div class="badge-stage" id="badgeStage">
+            <canvas class="lanyard" id="lanyard" aria-hidden="true"></canvas>
+            <div class="id-card" id="idCard">
+              <div class="id-inner" id="idInner">
+                <section class="id-face id-front" aria-label="ID badge, front" data-i18n-aria="aria.front">
+                  <span class="id-slot" aria-hidden="true"></span>
+                  <div class="id-head mono"><span>ENSI · LARODEC</span><span>2027</span></div>
+                  <div class="id-photo" aria-hidden="true"><span>SS</span></div>
+                  <p class="id-name">Soulaima<br />Sellemi</p>
+                  <p class="id-role" data-i18n="badge.role">AI Engineering Student</p>
+                  <p class="id-focus mono" data-i18n="badge.focus">LLM agents · RAG · Deep learning</p>
+                  <div class="id-foot">
+                    <span class="id-chip"><span class="dot" aria-hidden="true"></span><span data-i18n="badge.open">Open to PFE</span></span>
+                    <span class="id-code" aria-hidden="true"></span>
+                  </div>
+                </section>
+                <section class="id-face id-back" aria-label="ID badge, back" data-i18n-aria="aria.back">
+                  <span class="id-slot" aria-hidden="true"></span>
+                  <div class="id-head mono"><span>me.results()</span><span>v2026</span></div>
+                  <dl class="id-results">
+                    <div><dt data-i18n="badge.r1">PR decomposition</dt><dd>65.0% → 72.4%</dd></div>
+                    <div><dt data-i18n="badge.r2">Skin lesion segmentation</dt><dd data-i18n="badge.r2v">97.0% Dice</dd></div>
+                    <div><dt data-i18n="badge.r3">Gerrit changes mined</dt><dd>937,327</dd></div>
+                    <div><dt data-i18n="badge.r4">CV-job matching error</dt><dd>25.7 → 8.2 pts</dd></div>
+                  </dl>
+                  <p class="id-handles mono">github/soulaimasellemi<br />in/sellemi-soulaima</p>
+                </section>
+              </div>
+            </div>
+          </div>
+          <div class="badge-controls">
+            <button class="btn btn-ghost btn-sm" type="button" id="flipBtn" aria-pressed="false">
+              <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 15.5-6.2L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.5 6.2L3 16M3 21v-5h5"/></svg>
+              <span id="flipLabel">Flip badge</span>
+            </button>
+            <span class="badge-hint muted" data-i18n="badge.hint">or drag it to swing</span>
+          </div>
         </div>
       </div>
 
       <!-- Stats -->
-      <div class="container stats reveal" role="list" aria-label="Key results">
-        <div class="stat" role="listitem"><strong>2</strong><span>R&amp;D internships<br/>at Larodec Lab</span></div>
-        <div class="stat" role="listitem"><strong>937K</strong><span>Gerrit changes<br/>mined &amp; analysed</span></div>
-        <div class="stat" role="listitem"><strong>+7.4 pts</strong><span>accuracy over a<br/>published ICSE '26 baseline</span></div>
-        <div class="stat" role="listitem"><strong>97.0%</strong><span>Dice score on<br/>PH2 segmentation</span></div>
+      <div class="container stats" role="list" aria-label="Key results" data-i18n-aria="aria.stats">
+        <div class="stat" role="listitem"><strong>2</strong><span data-i18n="stats.s1">R&amp;D internships<br/>at Larodec Lab</span></div>
+        <div class="stat" role="listitem"><strong>937K</strong><span data-i18n="stats.s2">Gerrit changes<br/>mined &amp; analysed</span></div>
+        <div class="stat" role="listitem"><strong>+7.4 pts</strong><span data-i18n="stats.s3">accuracy over a<br/>published ICSE '26 baseline</span></div>
+        <div class="stat" role="listitem"><strong>97.0%</strong><span data-i18n="stats.s4">Dice score on<br/>PH2 segmentation</span></div>
       </div>
     </section>
 
     <!-- ========== ABOUT ========== -->
     <section id="about" class="section">
       <div class="container">
-        <h2 class="section-title reveal"><span class="mono accent" aria-hidden="true">01.</span> About me</h2>
+        <p class="eyebrow" data-i18n="about.eyebrow">Who I am</p>
+        <h2 class="section-title" data-i18n="about.title">About me</h2>
         <div class="about-grid">
-          <div class="reveal">
-            <p>I'm a final-year software engineering student at the <strong>National School of Computer Science (ENSI)</strong>, University of Manouba, after two years of Mathematics &amp; Physics preparatory classes at IPEIB.</p>
-            <p>What drives me is the gap between a promising paper and a tool someone can rely on. In my research internships I take published methods, test them on <em>messy, real-world data</em>, find out where they break, and build something better.</p>
-            <p>I'm comfortable across the whole path — from training and evaluating models to shipping them with <strong>LangChain / LangGraph, Docker and Jenkins CI/CD</strong>.</p>
-            <p class="looking"><span class="mono accent" aria-hidden="true">&gt;</span> Currently looking for an <strong>end-of-studies (PFE) internship</strong> in AI / LLM engineering.</p>
+          <div>
+            <p data-i18n="about.p1">I'm a final-year software engineering student at the <strong>National School of Computer Science (ENSI)</strong>, University of Manouba, after two years of Mathematics &amp; Physics preparatory classes at IPEIB.</p>
+            <p data-i18n="about.p2">What drives me is the gap between a promising paper and a tool someone can rely on. In my research internships I take published methods, test them on <em>messy, real-world data</em>, find out where they break, and build something better.</p>
+            <p data-i18n="about.p3">I'm comfortable across the whole path, from training and evaluating models to shipping them with <strong>LangChain / LangGraph, Docker and Jenkins CI/CD</strong>.</p>
+            <p class="looking" data-i18n="about.looking"><span class="mono accent" aria-hidden="true">&gt;</span> Currently looking for an <strong>end-of-studies (PFE) internship</strong> in AI / LLM engineering.</p>
           </div>
-          <ul class="facts reveal">
-            <li><span class="mono muted">location</span> Manouba, Tunisia</li>
-            <li><span class="mono muted">degree</span> Engineering, Software Eng. (2024–2027)</li>
-            <li><span class="mono muted">languages</span> Arabic (native) · French (C1) · English (B2)</li>
-            <li><span class="mono muted">also</span> Treasurer, ENSI Robotics Association</li>
+          <ul class="facts">
+            <li><span class="mono muted" data-i18n="facts.loc">location</span> <span data-i18n="facts.locV">Manouba, Tunisia</span></li>
+            <li><span class="mono muted" data-i18n="facts.deg">degree</span> <span data-i18n="facts.degV">Engineering, Software Eng. (2024–2027)</span></li>
+            <li><span class="mono muted" data-i18n="facts.lang">languages</span> <span data-i18n="facts.langV">Arabic (native) · French (C1) · English (B2)</span></li>
+            <li><span class="mono muted" data-i18n="facts.also">also</span> <span data-i18n="facts.alsoV">Treasurer, ENSI Robotics Association</span></li>
           </ul>
         </div>
       </div>
     </section>
 
-    <!-- ========== EXPERIENCE ========== -->
+    <!-- ========== RESEARCH ========== -->
     <section id="experience" class="section">
       <div class="container">
-        <h2 class="section-title reveal"><span class="mono accent" aria-hidden="true">02.</span> Research experience</h2>
+        <p class="eyebrow" data-i18n="exp.eyebrow">Lab work</p>
+        <h2 class="section-title" data-i18n="exp.title">Research experience</h2>
 
         <div class="timeline">
-          <article class="t-item reveal">
-            <div class="t-meta mono"><span>Summer 2026</span><span class="muted">Larodec Laboratory, ENSI</span></div>
+          <article class="t-item">
+            <div class="t-meta mono"><span data-i18n="exp.e1date">Summer 2026</span><span class="muted" data-i18n="exp.lab">Larodec Laboratory, ENSI</span></div>
             <div class="card">
-              <p class="kicker mono">AI R&amp;D Intern</p>
-              <h3>Toward AI-Assisted Decomposition of Large Pull Requests into Reviewable Changes</h3>
-              <p>Large pull requests are hard to review. I tested whether a published multi-agent LLM framework could split them into smaller, reviewable changes — on <strong>real developer history</strong> instead of synthetic benchmarks.</p>
+              <p class="kicker mono" data-i18n="exp.e1role">AI R&amp;D Intern</p>
+              <h3 data-i18n="exp.e1title">Toward AI-Assisted Decomposition of Large Pull Requests into Reviewable Changes</h3>
+              <p data-i18n="exp.e1desc">Large pull requests are hard to review. I tested whether a published multi-agent LLM framework could split them into smaller, reviewable changes, using <strong>real developer history</strong> instead of synthetic benchmarks.</p>
               <div class="metrics">
-                <div><strong>65.0%</strong><span>Atomizer (ICSE 2026) on real Gerrit data</span></div>
-                <div><strong>72.4%</strong><span>my taxonomy-routed pipeline</span></div>
-                <div><strong>κ = 0.896</strong><span>inter-rater agreement on taxonomy</span></div>
+                <div><strong>65.0%</strong><span data-i18n="exp.e1m1">Atomizer (ICSE 2026) on real Gerrit data</span></div>
+                <div><strong>72.4%</strong><span data-i18n="exp.e1m2">my taxonomy-routed pipeline</span></div>
+                <div><strong>κ = 0.896</strong><span data-i18n="exp.e1m3">inter-rater agreement on taxonomy</span></div>
               </div>
               <ul class="bullets">
-                <li>Mined <strong>937,327 Gerrit changes</strong> from 7 ecosystems into 142 validated change-split cases, each traced to the developer's own words.</li>
-                <li>Built a taxonomy of <em>why</em> and <em>how</em> developers split changes (κ = 0.896 and 0.769).</li>
-                <li>Diagnosed over-splitting as the main cost driver, then designed a taxonomy-routed pipeline that beat the baseline.</li>
+                <li data-i18n="exp.e1b1">Mined <strong>937,327 Gerrit changes</strong> from 7 ecosystems into 142 validated change-split cases, each traced to the developer's own words.</li>
+                <li data-i18n="exp.e1b2">Built a taxonomy of <em>why</em> and <em>how</em> developers split changes (κ = 0.896 and 0.769).</li>
+                <li data-i18n="exp.e1b3">Diagnosed over-splitting as the main cost driver, then designed a taxonomy-routed pipeline that beat the baseline.</li>
               </ul>
               <div class="tags"><span>Multi-agent LLMs</span><span>LangGraph</span><span>Mining software repositories</span><span>Empirical evaluation</span></div>
-              <a class="case-link" href="project-pr-decomposition.html">Read the full case study <span aria-hidden="true">→</span></a>
+              <a class="case-link" href="project-pr-decomposition.html"><span data-i18n="exp.case">Read the full case study</span> <span aria-hidden="true">→</span></a>
             </div>
           </article>
 
-          <article class="t-item reveal">
-            <div class="t-meta mono"><span>Summer 2025</span><span class="muted">Larodec Laboratory, ENSI</span></div>
+          <article class="t-item">
+            <div class="t-meta mono"><span data-i18n="exp.e2date">Summer 2025</span><span class="muted" data-i18n="exp.lab">Larodec Laboratory, ENSI</span></div>
             <div class="card">
-              <p class="kicker mono">Deep Learning Intern</p>
-              <h3>AC-MambaSeg: Hybrid CNN-Mamba Model for Skin Lesion Segmentation</h3>
-              <p>Reproduced and extended a hybrid architecture combining CNNs with Mamba state-space blocks, CBAM and attention gates for medical image segmentation, in PyTorch Lightning.</p>
+              <p class="kicker mono" data-i18n="exp.e2role">Deep Learning Intern</p>
+              <h3 data-i18n="exp.e2title">AC-MambaSeg: Hybrid CNN-Mamba Model for Skin Lesion Segmentation</h3>
+              <p data-i18n="exp.e2desc">Reproduced and extended a hybrid architecture combining CNNs with Mamba state-space blocks, CBAM and attention gates for medical image segmentation, in PyTorch Lightning.</p>
               <div class="metrics">
-                <div><strong>97.0%</strong><span>Dice on PH2 (CNN baseline 95.0%)</span></div>
-                <div><strong>94.2%</strong><span>IoU on PH2 (baseline 91.0%)</span></div>
-                <div><strong>90.5%</strong><span>Dice on ISIC 2018, ahead of SM-UNet</span></div>
+                <div><strong>97.0%</strong><span data-i18n="exp.e2m1">Dice on PH2 (CNN baseline 95.0%)</span></div>
+                <div><strong>94.2%</strong><span data-i18n="exp.e2m2">IoU on PH2 (baseline 91.0%)</span></div>
+                <div><strong>90.5%</strong><span data-i18n="exp.e2m3">Dice on ISIC 2018, ahead of SM-UNet</span></div>
               </div>
               <ul class="bullets">
-                <li>Hair-removal preprocessing, AdamW and fine-tuning raised ISIC 2018 Dice from <strong>85.3% to 90.5%</strong>.</li>
+                <li data-i18n="exp.e2b1">Hair-removal preprocessing, AdamW and fine-tuning raised ISIC 2018 Dice from <strong>85.3% to 90.5%</strong>.</li>
               </ul>
               <div class="tags"><span>PyTorch Lightning</span><span>Mamba / SSM</span><span>Medical imaging</span><span>OpenCV</span></div>
             </div>
@@ -177,54 +261,64 @@ me.status
     <!-- ========== PROJECTS ========== -->
     <section id="projects" class="section">
       <div class="container">
-        <h2 class="section-title"><span class="mono accent" aria-hidden="true">03.</span> Projects</h2>
-        <p class="section-intro">Click a project to see how it works, the results and the tech behind it.</p>
-        <ul class="p-grid">
-          <li>
+        <p class="eyebrow" data-i18n="proj.eyebrow">What I've built</p>
+        <h2 class="section-title" data-i18n="proj.title">Projects</h2>
+        <div class="proj-head">
+          <p class="section-intro" data-i18n="proj.intro">Click a project to see how it works, the results and the tech behind it.</p>
+          <div class="filters" role="group" aria-label="Filter projects" data-i18n-aria="aria.filter">
+            <button type="button" class="chip" data-filter="all" aria-pressed="true" data-i18n="proj.fAll">All</button>
+            <button type="button" class="chip" data-filter="research" aria-pressed="false" data-i18n="proj.fResearch">Research</button>
+            <button type="button" class="chip" data-filter="llm" aria-pressed="false">LLM &amp; RAG</button>
+            <button type="button" class="chip" data-filter="web" aria-pressed="false" data-i18n="proj.fWeb">Web apps</button>
+          </div>
+        </div>
+        <p class="filter-count muted" id="projCount" aria-live="polite"></p>
+        <ul class="p-grid" id="projGrid">
+          <li data-cat="research llm">
             <a class="p-card" href="project-pr-decomposition.html">
               <span class="p-thumb"><img src="assets/projects/pr-decomposition.svg" alt="" width="1200" height="675" loading="lazy" /></span>
               <span class="p-body">
-                <span class="p-meta mono">Research · 2026</span>
-                <span class="p-title">Toward AI-Assisted Decomposition of Large Pull Requests</span>
-                <span class="p-tagline">Tested a published multi-agent LLM on real Gerrit history, then built a pipeline that raised accuracy from 65.0% to 72.4%.</span>
+                <span class="p-meta mono" data-i18n="proj.c1meta">Research · 2026</span>
+                <span class="p-title" data-i18n="proj.c1title">Toward AI-Assisted Decomposition of Large Pull Requests</span>
+                <span class="p-tagline" data-i18n="proj.c1tag">Tested a published multi-agent LLM on real Gerrit history, then built a pipeline that raised accuracy from 65.0% to 72.4%.</span>
                 <span class="tags"><span>Multi-agent LLMs</span><span>Gerrit</span><span>Empirical study</span></span>
-                <span class="p-more">View project <span aria-hidden="true">→</span></span>
+                <span class="p-more"><span data-i18n="proj.view">View project</span> <span aria-hidden="true">→</span></span>
               </span>
             </a>
           </li>
-          <li>
+          <li data-cat="llm">
             <a class="p-card" href="project-youtube-qa.html">
               <span class="p-thumb"><img src="assets/projects/youtube-qa.svg" alt="" width="1200" height="675" loading="lazy" /></span>
               <span class="p-body">
-                <span class="p-meta mono">RAG</span>
+                <span class="p-meta mono">RAG · LangChain</span>
                 <span class="p-title">YouTube Transcript Q&amp;A</span>
-                <span class="p-tagline">Ask questions about any YouTube video and get answers grounded in what was said.</span>
+                <span class="p-tagline" data-i18n="proj.c2tag">Ask questions about any YouTube video and get answers grounded in what was said.</span>
                 <span class="tags"><span>LangChain</span><span>RAG</span><span>Python</span></span>
-                <span class="p-more">View project <span aria-hidden="true">→</span></span>
+                <span class="p-more"><span data-i18n="proj.view">View project</span> <span aria-hidden="true">→</span></span>
               </span>
             </a>
           </li>
-          <li>
+          <li data-cat="llm web">
             <a class="p-card" href="project-commit-qa.html">
               <span class="p-thumb"><img src="assets/projects/commit-qa.svg" alt="" width="1200" height="675" loading="lazy" /></span>
               <span class="p-body">
-                <span class="p-meta mono">2026</span>
+                <span class="p-meta mono">RAG · 2026</span>
                 <span class="p-title">Commit History Q&amp;A</span>
-                <span class="p-tagline">Ask questions about any Git repository and get answers that cite commit hashes.</span>
+                <span class="p-tagline" data-i18n="proj.c3tag">Ask questions about any Git repository and get answers that cite commit hashes.</span>
                 <span class="tags"><span>RAG</span><span>Hybrid search</span><span>Streamlit</span></span>
-                <span class="p-more">View project <span aria-hidden="true">→</span></span>
+                <span class="p-more"><span data-i18n="proj.view">View project</span> <span aria-hidden="true">→</span></span>
               </span>
             </a>
           </li>
-          <li>
+          <li data-cat="llm web">
             <a class="p-card" href="project-cv-matching.html">
               <span class="p-thumb"><img src="assets/projects/cv-matching.svg" alt="" width="1200" height="675" loading="lazy" /></span>
               <span class="p-body">
-                <span class="p-meta mono">2025 – 2026</span>
-                <span class="p-title">Explainable CV-Job Matching</span>
-                <span class="p-tagline">Matches CVs to jobs with evidence, then audits the decision for bias.</span>
+                <span class="p-meta mono">LLM · 2025 – 2026</span>
+                <span class="p-title" data-i18n="proj.c4title">Explainable CV-Job Matching</span>
+                <span class="p-tagline" data-i18n="proj.c4tag">Matches CVs to jobs with evidence, then audits the decision for bias.</span>
                 <span class="tags"><span>Llama 3.3 70B</span><span>GLiNER</span><span>Angular</span></span>
-                <span class="p-more">View project <span aria-hidden="true">→</span></span>
+                <span class="p-more"><span data-i18n="proj.view">View project</span> <span aria-hidden="true">→</span></span>
               </span>
             </a>
           </li>
@@ -235,28 +329,29 @@ me.status
     <!-- ========== SKILLS ========== -->
     <section id="skills" class="section">
       <div class="container">
-        <h2 class="section-title reveal"><span class="mono accent" aria-hidden="true">04.</span> Skills</h2>
+        <p class="eyebrow" data-i18n="skills.eyebrow">Toolkit</p>
+        <h2 class="section-title" data-i18n="skills.title">Skills</h2>
         <div class="skills">
-          <div class="skill-group card reveal">
-            <h3>LLMs &amp; Agents</h3>
+          <div class="skill-group card">
+            <h3 data-i18n="skills.g1">LLMs &amp; Agents</h3>
             <div class="tags"><span>LangChain</span><span>LangGraph</span><span>Multi-agent pipelines</span><span>RAG</span><span>Hybrid search (BM25 + embeddings)</span><span>LLM-as-a-judge</span><span>Llama 3</span><span>Groq</span><span>Ollama</span></div>
           </div>
-          <div class="skill-group card reveal">
-            <h3>Deep Learning &amp; NLP</h3>
+          <div class="skill-group card">
+            <h3 data-i18n="skills.g2">Deep Learning &amp; NLP</h3>
             <div class="tags"><span>PyTorch</span><span>PyTorch Lightning</span><span>TensorFlow</span><span>Transformers</span><span>ONNX Runtime</span><span>spaCy</span><span>GLiNER</span><span>OpenCV</span></div>
           </div>
-          <div class="skill-group card reveal">
-            <h3>Programming &amp; Web</h3>
+          <div class="skill-group card">
+            <h3 data-i18n="skills.g3">Programming &amp; Web</h3>
             <div class="tags"><span>Python</span><span>Java</span><span>C / C++</span><span>SQL</span><span>Streamlit</span><span>MySQL</span><span>Angular</span><span>MongoDB</span></div>
           </div>
-          <div class="skill-group card reveal">
-            <h3>DevOps &amp; Tools</h3>
+          <div class="skill-group card">
+            <h3 data-i18n="skills.g4">DevOps &amp; Tools</h3>
             <div class="tags"><span>Git</span><span>Docker</span><span>Linux</span><span>Jenkins</span><span>SonarQube</span><span>Maven</span><span>CI/CD</span><span>Tree-sitter</span><span>PyDriller</span><span>LaTeX</span></div>
           </div>
         </div>
 
         <div class="two-col">
-          <div class="reveal">
+          <div>
             <h3 class="sub-title">Certifications</h3>
             <ul class="list">
               <li><strong>NVIDIA</strong> — Fundamentals of Deep Learning <span class="muted">· 2026</span></li>
@@ -266,13 +361,13 @@ me.status
               <li><strong>DeepLearning.AI</strong> — Advanced Learning Algorithms <span class="muted">· Coursera</span></li>
             </ul>
           </div>
-          <div class="reveal">
-            <h3 class="sub-title">Activities</h3>
+          <div>
+            <h3 class="sub-title" data-i18n="skills.act">Activities</h3>
             <ul class="list">
-              <li><strong>Treasurer, Executive Board</strong> — ENSI Robotics Association <span class="muted">· 2025–2026</span></li>
-              <li><strong>Member</strong> — IEEE ENSI Student Branch <span class="muted">· 2024–2025</span></li>
-              <li><strong>Member</strong> — ENSI Junior Enterprise <span class="muted">· 2024–2025</span></li>
-              <li><strong>Member</strong> — ENSI Competitive Programming Club <span class="muted">· 2024–2025</span></li>
+              <li data-i18n="skills.a1"><strong>Treasurer, Executive Board</strong> — ENSI Robotics Association <span class="muted">· 2025–2026</span></li>
+              <li data-i18n="skills.a2"><strong>Member</strong> — IEEE ENSI Student Branch <span class="muted">· 2024–2025</span></li>
+              <li data-i18n="skills.a3"><strong>Member</strong> — ENSI Junior Enterprise <span class="muted">· 2024–2025</span></li>
+              <li data-i18n="skills.a4"><strong>Member</strong> — ENSI Competitive Programming Club <span class="muted">· 2024–2025</span></li>
             </ul>
           </div>
         </div>
@@ -282,26 +377,27 @@ me.status
     <!-- ========== CONTACT ========== -->
     <section id="contact" class="section">
       <div class="container">
-        <h2 class="section-title reveal"><span class="mono accent" aria-hidden="true">05.</span> Contact</h2>
+        <p class="eyebrow" data-i18n="contact.eyebrow">Let's talk</p>
+        <h2 class="section-title" data-i18n="contact.title">Contact</h2>
         <div class="contact-grid">
-          <div class="reveal">
-            <h3 class="contact-title">Let's build something trustworthy.</h3>
-            <p>I'm looking for a PFE internship in AI / LLM engineering. If your team works on agents, RAG or applied deep learning, I'd love to talk.</p>
+          <div>
+            <h3 class="contact-title" data-i18n="contact.h">Let's build something trustworthy.</h3>
+            <p data-i18n="contact.p">I'm looking for a PFE internship in AI / LLM engineering. If your team works on agents, RAG or applied deep learning, I'd love to talk.</p>
             <ul class="contact-list">
               <li><span class="mono muted">email</span> <a href="mailto:soulaima.sellemi@ensi-uma.tn">soulaima.sellemi@ensi-uma.tn</a></li>
-              <li><span class="mono muted">phone</span> <a href="tel:+21629732985">+216 29 732 985</a></li>
-              <li><span class="mono muted">linkedin</span> <a href="https://linkedin.com/in/sellemi-soulaima" target="_blank" rel="noopener">sellemi-soulaima<span class="sr-only"> (opens in a new tab)</span></a></li>
-              <li><span class="mono muted">github</span> <a href="https://github.com/soulaimasellemi" target="_blank" rel="noopener">soulaimasellemi<span class="sr-only"> (opens in a new tab)</span></a></li>
+              <li><span class="mono muted" data-i18n="contact.phone">phone</span> <a href="tel:+21629732985">+216 29 732 985</a></li>
+              <li><span class="mono muted">linkedin</span> <a href="https://linkedin.com/in/sellemi-soulaima" target="_blank" rel="noopener">sellemi-soulaima<span class="sr-only" data-i18n="a11y.newtab"> (opens in a new tab)</span></a></li>
+              <li><span class="mono muted">github</span> <a href="https://github.com/soulaimasellemi" target="_blank" rel="noopener">soulaimasellemi<span class="sr-only" data-i18n="a11y.newtab"> (opens in a new tab)</span></a></li>
             </ul>
           </div>
 
           <!-- Free contact form via Web3Forms: put your access key in script.js (see README) -->
-          <form class="form card reveal" id="contactForm" aria-label="Contact form">
-            <label><span>Name <span class="req" aria-hidden="true">*</span></span><input name="name" required autocomplete="name" /></label>
-            <label><span>Email <span class="req" aria-hidden="true">*</span></span><input name="email" type="email" required autocomplete="email" /></label>
+          <form class="form card" id="contactForm" aria-label="Contact form" data-i18n-aria="aria.form">
+            <label><span><span data-i18n="form.name">Name</span> <span class="req" aria-hidden="true">*</span></span><input name="name" required autocomplete="name" /></label>
+            <label><span><span data-i18n="form.email">Email</span> <span class="req" aria-hidden="true">*</span></span><input name="email" type="email" required autocomplete="email" /></label>
             <label><span>Message <span class="req" aria-hidden="true">*</span></span><textarea name="message" rows="5" required></textarea></label>
             <input type="checkbox" name="botcheck" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
-            <button class="btn btn-primary" type="submit">Send message</button>
+            <button class="btn btn-primary" type="submit" data-i18n="form.send">Send message</button>
             <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
           </form>
         </div>
@@ -311,11 +407,12 @@ me.status
 
   <footer class="footer">
     <div class="container footer-inner">
-      <p class="muted">© <span id="year"></span> Soulaima Sellemi · Built with HTML, CSS &amp; JS · Hosted for free</p>
-      <a href="#top" class="muted">Back to top <span aria-hidden="true">↑</span></a>
+      <p class="muted">© <span id="year"></span> Soulaima Sellemi · <span data-i18n="footer.built">Built with HTML, CSS &amp; JS · Hosted for free</span></p>
+      <a href="#top" class="muted"><span data-i18n="footer.top">Back to top</span> <span aria-hidden="true">↑</span></a>
     </div>
   </footer>
 
+  <script src="i18n.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

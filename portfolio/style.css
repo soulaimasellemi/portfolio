@@ -370,3 +370,261 @@ h1 { font-size: clamp(2.4rem, 6vw, 3.8rem); line-height: 1.08; letter-spacing: -
   .d-side { position: static; }
 }
 @media (max-width: 720px) { .steps li { grid-template-columns: 1fr; gap: 10px; } }
+
+/* ============ HANGING ID BADGE (hero) ============ */
+.badge-wrap { display: flex; flex-direction: column; align-items: center; gap: 14px; min-width: 0; }
+.badge-stage {
+  position: relative; width: 100%; max-width: 420px; height: 560px;
+  margin-top: -80px; /* strap starts above the hero, like it hangs from the top */
+}
+.lanyard { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.id-card {
+  --w: 252px; --h: 360px;
+  position: absolute; left: 0; top: 0; width: var(--w); height: var(--h);
+  transform-origin: 50% 0; perspective: 1200px;
+  cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none;
+  will-change: transform;
+}
+.id-card.dragging { cursor: grabbing; }
+.id-inner {
+  position: relative; width: 100%; height: 100%;
+  transform-style: preserve-3d; transition: transform 0.7s cubic-bezier(.2,.8,.2,1);
+}
+.id-card.flipped .id-inner { transform: rotateY(180deg); }
+.id-face {
+  position: absolute; inset: 0; border-radius: 18px; padding: 30px 22px 20px;
+  backface-visibility: hidden; -webkit-backface-visibility: hidden;
+  display: flex; flex-direction: column; gap: 8px; overflow: hidden;
+  background: var(--card); border: 1px solid var(--border);
+  box-shadow: 0 18px 40px rgba(20, 10, 20, 0.22), 0 2px 0 rgba(255,255,255,0.04) inset;
+}
+.id-front::before {
+  content: ""; position: absolute; inset: 0 0 auto; height: 112px;
+  background: linear-gradient(135deg, var(--accent), color-mix(in srgb, var(--accent) 55%, var(--code-key)));
+  opacity: 0.95; z-index: 0;
+}
+.id-front > * { position: relative; z-index: 1; }
+.id-back { transform: rotateY(180deg); }
+.id-slot {
+  position: absolute; top: 11px; left: 50%; width: 44px; height: 8px; margin-left: -22px;
+  border-radius: 99px; background: var(--bg); box-shadow: inset 0 1px 2px rgba(0,0,0,0.35); z-index: 2;
+}
+.id-head { display: flex; justify-content: space-between; font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; }
+.id-front .id-head { color: var(--accent-ink); opacity: 0.9; }
+.id-back .id-head { color: var(--accent); }
+.id-photo {
+  width: 92px; height: 92px; border-radius: 50%; margin: 6px 0 4px;
+  display: grid; place-items: center; background: var(--card);
+  border: 4px solid var(--card); box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+  outline: 2px solid color-mix(in srgb, var(--accent) 40%, transparent); outline-offset: 0;
+}
+.id-photo span {
+  font-family: "JetBrains Mono", monospace; font-weight: 600; font-size: 28px; color: var(--accent);
+}
+.id-name { font-size: 1.45rem; font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; color: var(--text); margin-top: 4px; }
+.id-role { font-size: 14px; font-weight: 600; color: var(--accent); }
+.id-focus { font-size: 11.5px; color: var(--muted); }
+.id-foot { margin-top: auto; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.id-chip {
+  display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600;
+  padding: 5px 10px; border-radius: 99px; background: var(--accent-soft); color: var(--accent);
+}
+.id-code {
+  flex: 1; max-width: 96px; height: 30px; border-radius: 3px; opacity: 0.75;
+  background: repeating-linear-gradient(90deg, var(--text) 0 2px, transparent 2px 4px, var(--text) 4px 5px, transparent 5px 8px, var(--text) 8px 11px, transparent 11px 13px);
+}
+.id-results { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
+.id-results div { padding: 10px 12px; border-radius: 10px; background: var(--bg-soft); border: 1px solid var(--border); }
+.id-results dt { font-size: 11.5px; color: var(--muted); }
+.id-results dd { font-size: 1.05rem; font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; }
+.id-handles { margin-top: auto; font-size: 11px; color: var(--muted); line-height: 1.6; }
+.badge-controls { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: center; }
+.btn-sm { padding: 8px 14px; font-size: 14px; }
+.btn-sm svg { width: 16px; height: 16px; }
+.badge-hint { font-size: 13px; }
+
+/* Before JS runs (or without JS): show the card hanging straight */
+.id-card:not(.live) { left: 50%; top: 150px; margin-left: calc(var(--w) / -2); }
+
+@media (max-width: 900px) {
+  .badge-stage { margin-top: 0; height: 500px; }
+}
+@media (max-width: 420px) {
+  .id-card { --w: 228px; --h: 332px; }
+  .id-face { padding: 28px 18px 18px; }
+  .id-photo { width: 80px; height: 80px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .id-inner { transition: none; }
+  .badge-hint { display: none; }
+}
+button.btn-ghost { background: transparent; color: var(--text); }
+.id-back { gap: 6px; }
+.id-results { gap: 7px; margin-top: 6px; }
+.id-results div { padding: 7px 11px; border-radius: 9px; }
+.id-results dt { font-size: 11px; line-height: 1.3; }
+.id-results dd { font-size: 0.98rem; line-height: 1.3; }
+.id-handles { font-size: 10.5px; line-height: 1.5; }
+@media (max-width: 420px) {
+  .id-back .id-results { gap: 5px; }
+  .id-back .id-results div { padding: 5px 10px; }
+  .id-handles { display: none; }
+}
+
+/* =====================================================
+   v3: top bar, side rail, hero, spinning button, labels,
+   project filters, language switch
+   ===================================================== */
+
+/* ---- Top bar ---- */
+.nav-actions { display: flex; align-items: center; gap: 10px; }
+.logo { gap: 10px; }
+.logo-full {
+  display: inline-block; overflow: hidden; white-space: nowrap; vertical-align: middle;
+  max-width: 0; opacity: 0; font-size: 1.12rem; font-weight: 800; letter-spacing: -0.025em;
+  animation: logoIn 0.9s 0.5s cubic-bezier(.2,.8,.2,1) forwards;
+}
+@keyframes logoIn { to { max-width: 240px; opacity: 1; } }
+.lang-switch {
+  display: inline-flex; align-items: center; gap: 2px; padding: 3px 3px 3px 10px;
+  border: 1px solid var(--border); border-radius: 999px; background: var(--card);
+}
+.lang-switch svg { width: 15px; height: 15px; color: var(--muted); margin-right: 4px; }
+.lang-switch button {
+  font: 600 12px/1 "JetBrains Mono", monospace; letter-spacing: 0.04em;
+  padding: 7px 9px; border-radius: 999px; border: 0; background: transparent;
+  color: var(--muted); cursor: pointer; transition: background 0.2s, color 0.2s;
+}
+.lang-switch button:hover { color: var(--accent); }
+.lang-switch button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+.cv-btn { border-radius: 999px; padding: 9px 16px; }
+
+/* top text links only where the side rail isn't shown */
+@media (min-width: 1280px) { body:has(#rail) .nav-links { display: none; } }
+
+/* ---- Side rail ---- */
+.rail { display: none; }
+@media (min-width: 1280px) {
+  .rail {
+    display: flex; flex-direction: column; gap: 6px; padding: 8px;
+    position: fixed; z-index: 40; top: 50%; transform: translateY(-50%);
+    right: max(22px, env(safe-area-inset-right, 0px));
+    background: color-mix(in srgb, var(--card) 88%, transparent); backdrop-filter: blur(10px);
+    border: 1px solid var(--border); border-radius: 999px; box-shadow: var(--shadow);
+  }
+}
+.rail a {
+  position: relative; display: grid; place-items: center; width: 46px; height: 46px;
+  border-radius: 50%; color: var(--muted); transition: background 0.2s, color 0.2s;
+}
+.rail a svg { width: 21px; height: 21px; stroke-width: 1.7; }
+.rail a:hover { color: var(--accent); background: var(--accent-soft); }
+.rail a.active { background: var(--accent); color: var(--accent-ink); }
+.rail-tip {
+  position: absolute; right: calc(100% + 14px); top: 50%; transform: translate(6px, -50%);
+  white-space: nowrap; font-size: 13px; font-weight: 500; padding: 5px 10px; border-radius: 7px;
+  background: var(--text); color: var(--bg); opacity: 0; pointer-events: none;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.rail a:hover .rail-tip, .rail a:focus-visible .rail-tip { opacity: 1; transform: translate(0, -50%); }
+
+/* ---- Hero ---- */
+.hero { padding: 64px 0 40px; }
+.hello { font-size: 1.15rem; color: var(--muted); margin-bottom: 4px; }
+.hero h1 {
+  font-size: clamp(3rem, 7vw, 5.3rem); line-height: 0.95; letter-spacing: -0.045em; font-weight: 800;
+}
+.hero .role {
+  font-family: "Inter", system-ui, sans-serif; font-weight: 800; letter-spacing: -0.025em;
+  font-size: clamp(1.25rem, 2.4vw, 1.75rem); line-height: 1.2; color: var(--accent); margin: 14px 0 10px;
+}
+.school { font-size: 1.05rem; color: var(--text); }
+.focus-line { font-size: 15px; color: var(--muted); margin: 6px 0 16px; }
+.focus-line span { color: var(--accent); }
+.pfe-card {
+  display: inline-flex; align-items: center; gap: 14px; margin-top: 22px; padding: 12px 20px 12px 16px;
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, var(--border)); border-radius: 16px;
+  background: var(--accent-soft);
+}
+.pfe-card .dot { width: 12px; height: 12px; }
+.pfe-card strong { display: block; font-size: 15.5px; }
+.pfe-card div span { font-size: 14px; color: var(--muted); }
+.cta { display: flex; align-items: center; gap: 30px; flex-wrap: wrap; margin: 26px 0 22px; }
+
+/* spinning "explore my projects" button */
+.spin-cta {
+  position: relative; display: grid; place-items: center; flex-shrink: 0;
+  width: 118px; height: 118px; border-radius: 50%; color: var(--text);
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--border));
+}
+.spin-ring {
+  position: absolute; inset: 0; width: 100%; height: 100%; stroke: none;
+  animation: spin 18s linear infinite;
+}
+.spin-ring text {
+  fill: var(--text); stroke: none; font: 600 9.6px "JetBrains Mono", monospace; letter-spacing: 0.06em;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.spin-core {
+  display: grid; place-items: center; width: 54px; height: 54px; border-radius: 50%;
+  border: 1.5px dashed color-mix(in srgb, var(--accent) 70%, transparent); color: var(--accent);
+  transition: background 0.25s, color 0.25s, transform 0.25s;
+}
+.spin-core svg { width: 22px; height: 22px; }
+.spin-cta:hover .spin-core { background: var(--accent); color: var(--accent-ink); border-style: solid; transform: translateY(3px); }
+.spin-cta:hover .spin-ring { animation-duration: 7s; }
+.spin-cta:focus-visible { border-radius: 50%; }
+.text-link {
+  font-weight: 600; font-size: 1.05rem; padding-bottom: 3px;
+  border-bottom: 1.5px solid var(--accent); color: var(--text);
+}
+.text-link span[aria-hidden] { color: var(--accent); display: inline-block; transition: transform 0.2s; }
+.text-link:hover span[aria-hidden] { transform: translateX(4px); }
+
+/* ---- Section labels ---- */
+.eyebrow {
+  font: 600 12.5px "JetBrains Mono", monospace; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 10px;
+}
+.section-title {
+  display: block; font-size: clamp(2.2rem, 5vw, 3.3rem); font-weight: 800;
+  letter-spacing: -0.035em; line-height: 1.05; margin-bottom: 40px;
+}
+.section-title::after {
+  content: ""; display: block; width: 56px; height: 5px; border-radius: 99px;
+  background: var(--accent); opacity: 0.75; margin-top: 16px;
+}
+
+/* ---- Project filters ---- */
+.proj-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px 24px; flex-wrap: wrap; margin-bottom: 10px; }
+.proj-head .section-intro { margin: 0; max-width: 44ch; }
+.filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  font: 500 14px "Inter", system-ui, sans-serif; padding: 8px 16px; border-radius: 999px;
+  border: 1px solid var(--border); background: var(--card); color: var(--text); cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
+}
+.chip:hover { border-color: var(--accent); color: var(--accent); }
+.chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.filter-count { font-size: 13px; margin: 6px 0 20px; }
+.p-grid li[hidden] { display: none; }
+
+/* ---- Responsive ---- */
+@media (max-width: 900px) {
+  .hero { padding-top: 40px; }
+}
+@media (max-width: 720px) {
+  .logo-full { display: none; }
+  .cv-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .cv-btn { padding: 9px 11px; }
+  .nav-actions { gap: 6px; }
+  .cta { gap: 22px; }
+}
+@media (max-width: 380px) {
+  .lang-switch svg { display: none; }
+  .lang-switch { padding-left: 3px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .logo-full { animation: none; max-width: 240px; opacity: 1; }
+  .spin-ring { animation: none; }
+}

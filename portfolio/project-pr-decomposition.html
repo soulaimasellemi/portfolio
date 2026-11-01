@@ -19,25 +19,43 @@
       var t = localStorage.getItem("theme");
       if (t) document.documentElement.setAttribute("data-theme", t);
     } catch (e) {}
+    try {
+      var l = localStorage.getItem("lang");
+      if (!l) l = (navigator.language || "en").toLowerCase().indexOf("fr") === 0 ? "fr" : "en";
+      document.documentElement.lang = l;
+    } catch (e) {}
   </script>
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to main content</a>
+  <a class="skip-link" href="#main" data-i18n="a11y.skip">Skip to main content</a>
   <header class="nav" id="top">
     <div class="container nav-inner">
-      <a href="index.html" class="logo" aria-label="Soulaima Sellemi, back to top"><span class="logo-mark" aria-hidden="true">SS</span><span class="logo-text">soulaima<span class="accent">.dev</span></span></a>
+      <a href="index.html" class="logo" aria-label="Soulaima Sellemi">
+        <span class="logo-mark" aria-hidden="true">SS</span>
+        <span class="logo-full" aria-hidden="true">Soulaima <span class="accent">Sellemi</span></span>
+      </a>
       <nav class="nav-links" id="navLinks" aria-label="Main">
-        <a href="index.html#about">About</a>
-        <a href="index.html#experience">Research</a>
-        <a href="index.html#projects">Projects</a>
-        <a href="index.html#skills">Skills</a>
-        <a href="index.html#contact">Contact</a>
+        <a href="index.html#about" data-i18n="nav.about">About</a>
+        <a href="index.html#experience" data-i18n="nav.research">Research</a>
+        <a href="index.html#projects" data-i18n="nav.projects">Projects</a>
+        <a href="index.html#skills" data-i18n="nav.skills">Skills</a>
+        <a href="index.html#contact" data-i18n="nav.contact">Contact</a>
       </nav>
       <div class="nav-actions">
+        <div class="lang-switch" role="group" aria-label="Language / Langue">
+          <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+          <button type="button" data-lang="en" aria-pressed="true" lang="en">EN</button>
+          <button type="button" data-lang="fr" aria-pressed="false" lang="fr">FR</button>
+        </div>
         <button class="icon-btn" id="themeToggle" type="button" aria-label="Switch to light mode">
           <svg aria-hidden="true" focusable="false" class="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
           <svg aria-hidden="true" focusable="false" class="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
         </button>
+        <a class="btn btn-primary btn-sm cv-btn" href="assets/Soulaima_Sellemi_CV.pdf" target="_blank" rel="noopener">
+          <span class="cv-label" data-i18n="cta.cv">Download CV</span>
+          <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M12 3v12m0 0-4-4m4 4 4-4M5 21h14"/></svg>
+          <span class="sr-only" data-i18n="a11y.newtab"> (opens in a new tab)</span>
+        </a>
         <button class="icon-btn menu-btn" id="menuBtn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="navLinks">
           <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
         </button>
@@ -48,85 +66,87 @@
   <main id="main" tabindex="-1">
     <div class="container">
       <section class="d-hero">
-        <a class="crumb" href="index.html#projects"><span aria-hidden="true">←</span> All projects</a>
-        <p class="kicker mono">Summer 2026 · AI R&amp;D · Larodec Lab</p>
-        <h1>Toward AI-Assisted Decomposition of Large Pull Requests</h1>
-        <p class="lead">Can a multi-agent LLM split a large pull request into smaller changes that reviewers can actually handle? I tested a published framework on real developer history, found where it breaks, and built a pipeline that does better.</p>
+        <a class="crumb" href="index.html#projects"><span aria-hidden="true">←</span> <span data-i18n="pp.all">All projects</span></a>
+        <p class="kicker mono" data-i18n="p.kicker">Summer 2026 · AI R&amp;D · Larodec Lab</p>
+        <h1 data-i18n="p.title">Toward AI-Assisted Decomposition of Large Pull Requests</h1>
+        <p class="lead" data-i18n="p.lead">Can a multi-agent LLM split a large pull request into smaller changes that reviewers can actually handle? I tested a published framework on real developer history, found where it breaks, and built a pipeline that does better.</p>
         <div class="tags"><span>Multi-agent LLMs</span><span>Mining software repositories</span><span>Gerrit</span><span>Empirical evaluation</span><span>Taxonomy</span></div>
         <div class="d-actions">
-          <a class="btn btn-primary" href="index.html#contact">Ask me about this research</a>
-          <a class="btn btn-ghost" href="assets/Soulaima_Sellemi_CV.pdf" target="_blank" rel="noopener">Download CV<span class="sr-only"> (opens in a new tab)</span></a>
+          <a class="btn btn-primary" href="index.html#contact"><span data-i18n="pp.ask">Ask me about this research</span></a>
+          <a class="btn btn-ghost" href="assets/Soulaima_Sellemi_CV.pdf" target="_blank" rel="noopener"><span data-i18n="cta.cv">Download CV</span><span class="sr-only" data-i18n="a11y.newtab"> (opens in a new tab)</span></a>
         </div>
       </section>
 
       <figure class="d-cover">
         <img src="assets/projects/pr-decomposition.svg" alt="Diagram of the Toward AI-Assisted Decomposition of Large Pull Requests pipeline" width="1200" height="675" />
       </figure>
-      <figcaption class="d-caption">How the pipeline works, step by step.</figcaption>
+      <figcaption class="d-caption" data-i18n="pp.caption">How the pipeline works, step by step.</figcaption>
 
       <div class="d-layout">
         <div class="d-main">
           <section aria-labelledby="problem">
-            <h2 id="problem">The problem</h2>
-            <p>Large pull requests are hard to review: they mix unrelated changes, so reviewers miss problems or put off the review. Research tools such as <strong>Atomizer</strong>, a multi-agent LLM framework for untangling commits published at ICSE 2026, promise to split them automatically.</p>
-            <p>But those tools are mostly tested on <em>synthetic</em> benchmarks. My question was how well they work on the way real developers actually split their changes.</p>
+            <h2 id="problem" data-i18n="pp.problem">The problem</h2>
+            <p data-i18n="p.problem0">Large pull requests are hard to review: they mix unrelated changes, so reviewers miss problems or put off the review. Research tools such as <strong>Atomizer</strong>, a multi-agent LLM framework for untangling commits published at ICSE 2026, promise to split them automatically.</p>
+            <p data-i18n="p.problem1">But those tools are mostly tested on <em>synthetic</em> benchmarks. My question was how well they work on the way real developers actually split their changes.</p>
           </section>
 
           <section aria-labelledby="how">
-            <h2 id="how">How it works</h2>
+            <h2 id="how" data-i18n="pp.how">How it works</h2>
             <ol class="steps">
-              <li><div><h3>Build a real-world dataset</h3><p>Mined <strong>937,327 Gerrit changes</strong> from 7 open-source ecosystems and kept <strong>142 validated change-split cases</strong>, each traced to the developer's own words explaining the split.</p></div></li>
-              <li><div><h3>Evaluate the state of the art</h3><p>Ran Atomizer on these real cases instead of synthetic benchmarks. It reached <strong>65.0% accuracy</strong>.</p></div></li>
-              <li><div><h3>Understand how developers split</h3><p>Built a taxonomy of <em>why</em> and <em>how</em> developers split changes, with strong inter-rater agreement (<strong>κ = 0.896</strong> and <strong>0.769</strong>).</p></div></li>
-              <li><div><h3>Find the failure mode</h3><p>Diagnosed <strong>over-splitting</strong>, cutting changes into too many pieces, as the main cost driver.</p></div></li>
-              <li><div><h3>Build a better pipeline</h3><p>Designed a <strong>taxonomy-routed pipeline</strong> that uses what the taxonomy reveals to guide the split. It reached <strong>72.4% accuracy</strong>.</p></div></li>
+              <li><div><h3 data-i18n="p.stepT0">Build a real-world dataset</h3><p data-i18n="p.stepD0">Mined <strong>937,327 Gerrit changes</strong> from 7 open-source ecosystems and kept <strong>142 validated change-split cases</strong>, each traced to the developer's own words explaining the split.</p></div></li>
+              <li><div><h3 data-i18n="p.stepT1">Evaluate the state of the art</h3><p data-i18n="p.stepD1">Ran Atomizer on these real cases instead of synthetic benchmarks. It reached <strong>65.0% accuracy</strong>.</p></div></li>
+              <li><div><h3 data-i18n="p.stepT2">Understand how developers split</h3><p data-i18n="p.stepD2">Built a taxonomy of <em>why</em> and <em>how</em> developers split changes, with strong inter-rater agreement (<strong>κ = 0.896</strong> and <strong>0.769</strong>).</p></div></li>
+              <li><div><h3 data-i18n="p.stepT3">Find the failure mode</h3><p data-i18n="p.stepD3">Diagnosed <strong>over-splitting</strong>, cutting changes into too many pieces, as the main cost driver.</p></div></li>
+              <li><div><h3 data-i18n="p.stepT4">Build a better pipeline</h3><p data-i18n="p.stepD4">Designed a <strong>taxonomy-routed pipeline</strong> that uses what the taxonomy reveals to guide the split. It reached <strong>72.4% accuracy</strong>.</p></div></li>
             </ol>
           </section>
 
           <section aria-labelledby="results">
-            <h2 id="results">Results</h2>
-            <div class="d-metrics"><div><strong>65.0% → 72.4%</strong><span>accuracy: Atomizer vs. my taxonomy-routed pipeline</span></div><div><strong>937,327</strong><span>Gerrit changes mined from 7 ecosystems</span></div><div><strong>142</strong><span>validated real change-split cases</span></div><div><strong>κ = 0.896</strong><span>inter-rater agreement on the taxonomy</span></div></div>
-            <p style="margin-top:16px">On real developer splits, the taxonomy-routed pipeline improved accuracy by <strong>7.4 points</strong> over the published Atomizer baseline.</p>
+            <h2 id="results" data-i18n="pp.results">Results</h2>
+            <div class="d-metrics"><div><strong>65.0% → 72.4%</strong><span data-i18n="p.m0">accuracy: Atomizer vs. my taxonomy-routed pipeline</span></div><div><strong>937,327</strong><span data-i18n="p.m1">Gerrit changes mined from 7 ecosystems</span></div><div><strong>142</strong><span data-i18n="p.m2">validated real change-split cases</span></div><div><strong>κ = 0.896</strong><span data-i18n="p.m3">inter-rater agreement on the taxonomy</span></div></div>
+            <p style="margin-top:16px" data-i18n="p.mtext">On real developer splits, the taxonomy-routed pipeline improved accuracy by <strong>7.4 points</strong> over the published Atomizer baseline.</p>
           </section>
 
           <section aria-labelledby="learned">
-            <h2 id="learned">What I learned</h2>
-            <p>How to evaluate an AI research tool honestly: build data from real behavior, measure carefully, study the failures before changing the model, and let that understanding shape the fix.</p>
+            <h2 id="learned" data-i18n="pp.learned">What I learned</h2>
+            <p data-i18n="p.learned">How to evaluate an AI research tool honestly: build data from real behavior, measure carefully, study the failures before changing the model, and let that understanding shape the fix.</p>
           </section>
         </div>
 
-        <aside class="d-side" aria-label="Project facts">
+        <aside class="d-side" aria-label="Project facts" data-i18n-aria="aria.facts">
           <div class="d-box">
-            <h2>At a glance</h2>
+            <h2 data-i18n="pp.glance">At a glance</h2>
             <dl>
-              <div><dt>Period</dt><dd>Summer 2026</dd></div>
-              <div><dt>Role</dt><dd>AI R&amp;D Intern</dd></div>
-              <div><dt>Lab</dt><dd>Larodec, ENSI</dd></div>
-              <div><dt>Data</dt><dd>Gerrit, 7 ecosystems</dd></div>
-              <div><dt>Baseline</dt><dd>Atomizer (ICSE 2026)</dd></div>
+              <div><dt data-i18n="p.fk0">Period</dt><dd data-i18n="p.fv0">Summer 2026</dd></div>
+              <div><dt data-i18n="p.fk1">Role</dt><dd data-i18n="p.fv1">AI R&amp;D Intern</dd></div>
+              <div><dt data-i18n="p.fk2">Lab</dt><dd data-i18n="p.fv2">Larodec, ENSI</dd></div>
+              <div><dt data-i18n="p.fk3">Data</dt><dd data-i18n="p.fv3">Gerrit, 7 ecosystems</dd></div>
+              <div><dt data-i18n="p.fk4">Baseline</dt><dd data-i18n="p.fv4">Atomizer (ICSE 2026)</dd></div>
             </dl>
           </div>
           <div class="d-box">
-            <h2>Tech stack</h2>
+            <h2 data-i18n="pp.stack">Tech stack</h2>
             <div class="tags"><span>Multi-agent LLMs</span><span>Mining software repositories</span><span>Gerrit</span><span>Empirical evaluation</span><span>Taxonomy</span></div>
           </div>
         </aside>
       </div>
 
-      <nav class="d-next" aria-label="More projects">
-        <a href="project-cv-matching.html"><small><span aria-hidden="true">←</span> Previous project</small><span>Explainable CV-Job Matching with Bias Audit</span></a>
-        <a href="project-youtube-qa.html" class="next"><small>Next project <span aria-hidden="true">→</span></small><span>YouTube Transcript Q&amp;A</span></a>
+      <nav class="d-next" aria-label="More projects" data-i18n-aria="aria.more">
+        <a href="project-cv-matching.html"><small><span aria-hidden="true">←</span> <span data-i18n="pp.prev">Previous project</span></small><span data-i18n="p.prevTitle">Explainable CV-Job Matching with Bias Audit</span></a>
+        <a href="project-youtube-qa.html" class="next"><small><span data-i18n="pp.next">Next project</span> <span aria-hidden="true">→</span></small><span data-i18n="p.nextTitle">YouTube Transcript Q&amp;A</span></a>
       </nav>
     </div>
   </main>
 
   <footer class="footer">
     <div class="container footer-inner">
-      <p class="muted">© <span id="year"></span> Soulaima Sellemi · Built with HTML, CSS &amp; JS · Hosted for free</p>
-      <a href="#main" class="muted">Back to top <span aria-hidden="true">↑</span></a>
+      <p class="muted">© <span id="year"></span> Soulaima Sellemi · <span data-i18n="footer.built">Built with HTML, CSS &amp; JS · Hosted for free</span></p>
+      <a href="#main" class="muted"><span data-i18n="footer.top">Back to top</span> <span aria-hidden="true">↑</span></a>
     </div>
   </footer>
 
+  <script>window.PAGE_FR = {"p.problem0": "Les grandes pull requests sont difficiles à relire : elles mélangent des changements sans rapport, si bien que les relecteurs passent à côté de problèmes ou repoussent la revue. Des outils de recherche comme <strong>Atomizer<\/strong>, un framework LLM multi-agents publié à ICSE 2026, promettent de les découper automatiquement.", "p.problem1": "Mais ces outils sont surtout évalués sur des benchmarks <em>synthétiques<\/em>. Ma question : fonctionnent-ils sur la façon dont les développeurs découpent réellement leurs changements ?", "p.stepT0": "Construire un jeu de données réel", "p.stepD0": "Collecte de <strong>937 327 changements Gerrit<\/strong> issus de 7 écosystèmes open source, réduits à <strong>142 cas de découpage validés<\/strong>, chacun relié aux propres mots du développeur qui explique le découpage.", "p.stepT1": "Évaluer l’état de l’art", "p.stepD1": "Exécution d’Atomizer sur ces cas réels plutôt que sur des benchmarks synthétiques : <strong>65,0 % de précision<\/strong>.", "p.stepT2": "Comprendre comment les développeurs découpent", "p.stepD2": "Construction d’une taxonomie du <em>pourquoi<\/em> et du <em>comment<\/em> du découpage, avec un fort accord inter-annotateurs (<strong>κ = 0,896<\/strong> et <strong>0,769<\/strong>).", "p.stepT3": "Trouver la cause des erreurs", "p.stepD3": "Identification du <strong>sur-découpage<\/strong>, c’est-à-dire couper un changement en trop de morceaux, comme principale source d’erreur.", "p.stepT4": "Construire un meilleur pipeline", "p.stepD4": "Conception d’un <strong>pipeline guidé par la taxonomie<\/strong> qui s’appuie sur ces enseignements pour orienter le découpage : <strong>72,4 % de précision<\/strong>.", "p.fk0": "Période", "p.fv0": "Été 2026", "p.fk1": "Rôle", "p.fv1": "Stagiaire R&D en IA", "p.fk2": "Laboratoire", "p.fv2": "Larodec, ENSI", "p.fk3": "Données", "p.fv3": "Gerrit, 7 écosystèmes", "p.fk4": "Référence", "p.fv4": "Atomizer (ICSE 2026)", "p.m0": "précision : Atomizer vs. mon pipeline guidé par la taxonomie", "p.m1": "changements Gerrit collectés dans 7 écosystèmes", "p.m2": "cas réels de découpage validés", "p.m3": "accord inter-annotateurs sur la taxonomie", "p.mtext": "Sur des découpages réels, le pipeline guidé par la taxonomie améliore la précision de <strong>7,4 points<\/strong> par rapport à la référence Atomizer publiée.", "p.prevTitle": "Matching CV-offre explicable avec audit des biais", "p.nextTitle": "Q&R sur transcriptions YouTube", "p.kicker": "Été 2026 · R&D en IA · Laboratoire Larodec", "p.title": "Vers une décomposition assistée par IA des grandes pull requests", "p.lead": "Un LLM multi-agents peut-il découper une grande pull request en changements plus petits, réellement révisables ? J’ai testé un framework publié sur l’historique réel des développeurs, trouvé où il échoue, puis construit un pipeline plus performant.", "p.learned": "Comment évaluer honnêtement un outil de recherche en IA : construire des données à partir de comportements réels, mesurer avec rigueur, étudier les échecs avant de modifier le modèle, et laisser cette compréhension guider la solution."};</script>
+  <script src="i18n.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

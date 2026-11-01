@@ -19,25 +19,43 @@
       var t = localStorage.getItem("theme");
       if (t) document.documentElement.setAttribute("data-theme", t);
     } catch (e) {}
+    try {
+      var l = localStorage.getItem("lang");
+      if (!l) l = (navigator.language || "en").toLowerCase().indexOf("fr") === 0 ? "fr" : "en";
+      document.documentElement.lang = l;
+    } catch (e) {}
   </script>
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to main content</a>
+  <a class="skip-link" href="#main" data-i18n="a11y.skip">Skip to main content</a>
   <header class="nav" id="top">
     <div class="container nav-inner">
-      <a href="index.html" class="logo" aria-label="Soulaima Sellemi, back to top"><span class="logo-mark" aria-hidden="true">SS</span><span class="logo-text">soulaima<span class="accent">.dev</span></span></a>
+      <a href="index.html" class="logo" aria-label="Soulaima Sellemi">
+        <span class="logo-mark" aria-hidden="true">SS</span>
+        <span class="logo-full" aria-hidden="true">Soulaima <span class="accent">Sellemi</span></span>
+      </a>
       <nav class="nav-links" id="navLinks" aria-label="Main">
-        <a href="index.html#about">About</a>
-        <a href="index.html#experience">Research</a>
-        <a href="index.html#projects">Projects</a>
-        <a href="index.html#skills">Skills</a>
-        <a href="index.html#contact">Contact</a>
+        <a href="index.html#about" data-i18n="nav.about">About</a>
+        <a href="index.html#experience" data-i18n="nav.research">Research</a>
+        <a href="index.html#projects" data-i18n="nav.projects">Projects</a>
+        <a href="index.html#skills" data-i18n="nav.skills">Skills</a>
+        <a href="index.html#contact" data-i18n="nav.contact">Contact</a>
       </nav>
       <div class="nav-actions">
+        <div class="lang-switch" role="group" aria-label="Language / Langue">
+          <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+          <button type="button" data-lang="en" aria-pressed="true" lang="en">EN</button>
+          <button type="button" data-lang="fr" aria-pressed="false" lang="fr">FR</button>
+        </div>
         <button class="icon-btn" id="themeToggle" type="button" aria-label="Switch to light mode">
           <svg aria-hidden="true" focusable="false" class="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
           <svg aria-hidden="true" focusable="false" class="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
         </button>
+        <a class="btn btn-primary btn-sm cv-btn" href="assets/Soulaima_Sellemi_CV.pdf" target="_blank" rel="noopener">
+          <span class="cv-label" data-i18n="cta.cv">Download CV</span>
+          <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M12 3v12m0 0-4-4m4 4 4-4M5 21h14"/></svg>
+          <span class="sr-only" data-i18n="a11y.newtab"> (opens in a new tab)</span>
+        </a>
         <button class="icon-btn menu-btn" id="menuBtn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="navLinks">
           <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
         </button>
@@ -48,87 +66,89 @@
   <main id="main" tabindex="-1">
     <div class="container">
       <section class="d-hero">
-        <a class="crumb" href="index.html#projects"><span aria-hidden="true">←</span> All projects</a>
-        <p class="kicker mono">2025 – 2026 · LLM pipeline</p>
-        <h1>Explainable CV-Job Matching with Bias Audit</h1>
-        <p class="lead">Matches a CV to a job offer with evidence for every decision, then runs a separate LLM auditor to check the result for bias.</p>
+        <a class="crumb" href="index.html#projects"><span aria-hidden="true">←</span> <span data-i18n="pp.all">All projects</span></a>
+        <p class="kicker mono" data-i18n="p.kicker">2025 – 2026 · LLM pipeline</p>
+        <h1 data-i18n="p.title">Explainable CV-Job Matching with Bias Audit</h1>
+        <p class="lead" data-i18n="p.lead">Matches a CV to a job offer with evidence for every decision, then runs a separate LLM auditor to check the result for bias.</p>
         <div class="tags"><span>Llama 3.3 70B</span><span>Groq</span><span>GLiNER</span><span>spaCy</span><span>NetworkX</span><span>Angular</span><span>MongoDB</span></div>
         <div class="d-actions">
           <!-- TODO: replace with the real repository link -->
-          <a class="btn btn-primary" href="https://github.com/soulaimasellemi" target="_blank" rel="noopener"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" class="fill"><path d="M12 .5a11.5 11.5 0 0 0-3.6 22.4c.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0C17.3 4.8 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.9 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.2c0 .3.2.7.8.6A11.5 11.5 0 0 0 12 .5z"/></svg> View code<span class="sr-only"> (opens in a new tab)</span></a>
+          <a class="btn btn-primary" href="https://github.com/soulaimasellemi" target="_blank" rel="noopener"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" class="fill"><path d="M12 .5a11.5 11.5 0 0 0-3.6 22.4c.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0C17.3 4.8 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.9 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.2c0 .3.2.7.8.6A11.5 11.5 0 0 0 12 .5z"/></svg> <span data-i18n="pp.code">View code</span><span class="sr-only" data-i18n="a11y.newtab"> (opens in a new tab)</span></a>
           <!-- TODO: when the demo is online, replace this span with: <a class="btn btn-ghost" href="DEMO_URL" target="_blank" rel="noopener">Live demo</a> -->
-          <span class="btn btn-off">Live demo coming soon</span>
+          <span class="btn btn-off" data-i18n="pp.demoSoon">Live demo coming soon</span>
         </div>
       </section>
 
       <figure class="d-cover">
         <img src="assets/projects/cv-matching.svg" alt="Diagram of the Explainable CV-Job Matching with Bias Audit pipeline" width="1200" height="675" />
       </figure>
-      <figcaption class="d-caption">How the pipeline works, step by step.</figcaption>
+      <figcaption class="d-caption" data-i18n="pp.caption">How the pipeline works, step by step.</figcaption>
 
       <div class="d-layout">
         <div class="d-main">
           <section aria-labelledby="problem">
-            <h2 id="problem">The problem</h2>
-            <p>Automated CV screening is often a black box: a candidate gets a score with no explanation, and hidden bias can creep in.</p>
-            <p>This project makes every step <strong>explainable</strong>, ties each matched skill to evidence in the CV, and adds a dedicated bias check before the report is produced.</p>
+            <h2 id="problem" data-i18n="pp.problem">The problem</h2>
+            <p data-i18n="p.problem0">Automated CV screening is often a black box: a candidate gets a score with no explanation, and hidden bias can creep in.</p>
+            <p data-i18n="p.problem1">This project makes every step <strong>explainable</strong>, ties each matched skill to evidence in the CV, and adds a dedicated bias check before the report is produced.</p>
           </section>
 
           <section aria-labelledby="how">
-            <h2 id="how">How it works</h2>
+            <h2 id="how" data-i18n="pp.how">How it works</h2>
             <ol class="steps">
-              <li><div><h3>Job skill graph</h3><p>Extracts the skills a job requires with <strong>GLiNER</strong> and an LLM, and links related skills into a graph with NetworkX.</p></div></li>
-              <li><div><h3>Evidence-based CV audit</h3><p>Looks for concrete evidence of each required skill in the CV instead of just matching keywords.</p></div></li>
-              <li><div><h3>Rule-based scoring</h3><p>Computes the match score with transparent rules, so the number can be explained.</p></div></li>
-              <li><div><h3>LLM bias auditor</h3><p>A separate LLM reviews the evaluation for possible bias.</p></div></li>
-              <li><div><h3>Report</h3><p>Produces a readable report of the result, delivered in a web app with an <strong>Angular</strong> front end and <strong>MongoDB</strong> storage.</p></div></li>
+              <li><div><h3 data-i18n="p.stepT0">Job skill graph</h3><p data-i18n="p.stepD0">Extracts the skills a job requires with <strong>GLiNER</strong> and an LLM, and links related skills into a graph with NetworkX.</p></div></li>
+              <li><div><h3 data-i18n="p.stepT1">Evidence-based CV audit</h3><p data-i18n="p.stepD1">Looks for concrete evidence of each required skill in the CV instead of just matching keywords.</p></div></li>
+              <li><div><h3 data-i18n="p.stepT2">Rule-based scoring</h3><p data-i18n="p.stepD2">Computes the match score with transparent rules, so the number can be explained.</p></div></li>
+              <li><div><h3 data-i18n="p.stepT3">LLM bias auditor</h3><p data-i18n="p.stepD3">A separate LLM reviews the evaluation for possible bias.</p></div></li>
+              <li><div><h3 data-i18n="p.stepT4">Report</h3><p data-i18n="p.stepD4">Produces a readable report of the result, delivered in a web app with an <strong>Angular</strong> front end and <strong>MongoDB</strong> storage.</p></div></li>
             </ol>
           </section>
 
           <section aria-labelledby="results">
-            <h2 id="results">Results</h2>
-            <div class="d-metrics"><div><strong>25.7 → 8.2</strong><span>error points with Llama 3.3 70B</span></div><div><strong>500</strong><span>CV-job pairs in the evaluation (up to)</span></div><div><strong>3</strong><span>LLMs compared: Gemma 3 4B, Llama 3.1 8B, Llama 3.3 70B</span></div></div>
-            <p style="margin-top:16px">I compared three models with <strong>LLM-as-a-judge</strong> on up to 500 CV-job pairs. The larger Llama 3.3 70B cut the error from 25.7 to 8.2 points.</p>
+            <h2 id="results" data-i18n="pp.results">Results</h2>
+            <div class="d-metrics"><div><strong>25.7 → 8.2</strong><span data-i18n="p.m0">error points with Llama 3.3 70B</span></div><div><strong>500</strong><span data-i18n="p.m1">CV-job pairs in the evaluation (up to)</span></div><div><strong>3</strong><span data-i18n="p.m2">LLMs compared: Gemma 3 4B, Llama 3.1 8B, Llama 3.3 70B</span></div></div>
+            <p style="margin-top:16px" data-i18n="p.mtext">I compared three models with <strong>LLM-as-a-judge</strong> on up to 500 CV-job pairs. The larger Llama 3.3 70B cut the error from 25.7 to 8.2 points.</p>
           </section>
 
           <section aria-labelledby="learned">
-            <h2 id="learned">What I learned</h2>
-            <p>How to design multi-step LLM pipelines where each stage is checkable, how to evaluate LLM outputs at scale with LLM-as-a-judge, and how model size trades off against quality.</p>
+            <h2 id="learned" data-i18n="pp.learned">What I learned</h2>
+            <p data-i18n="p.learned">How to design multi-step LLM pipelines where each stage is checkable, how to evaluate LLM outputs at scale with LLM-as-a-judge, and how model size trades off against quality.</p>
           </section>
         </div>
 
-        <aside class="d-side" aria-label="Project facts">
+        <aside class="d-side" aria-label="Project facts" data-i18n-aria="aria.facts">
           <div class="d-box">
-            <h2>At a glance</h2>
+            <h2 data-i18n="pp.glance">At a glance</h2>
             <dl>
-              <div><dt>Years</dt><dd>2025 – 2026</dd></div>
-              <div><dt>Type</dt><dd>LLM pipeline + web app</dd></div>
-              <div><dt>Main model</dt><dd>Llama 3.3 70B (Groq)</dd></div>
-              <div><dt>Front end</dt><dd>Angular</dd></div>
-              <div><dt>Storage</dt><dd>MongoDB</dd></div>
+              <div><dt data-i18n="p.fk0">Years</dt><dd data-i18n="p.fv0">2025 – 2026</dd></div>
+              <div><dt data-i18n="p.fk1">Type</dt><dd data-i18n="p.fv1">LLM pipeline + web app</dd></div>
+              <div><dt data-i18n="p.fk2">Main model</dt><dd data-i18n="p.fv2">Llama 3.3 70B (Groq)</dd></div>
+              <div><dt data-i18n="p.fk3">Front end</dt><dd data-i18n="p.fv3">Angular</dd></div>
+              <div><dt data-i18n="p.fk4">Storage</dt><dd data-i18n="p.fv4">MongoDB</dd></div>
             </dl>
           </div>
           <div class="d-box">
-            <h2>Tech stack</h2>
+            <h2 data-i18n="pp.stack">Tech stack</h2>
             <div class="tags"><span>Llama 3.3 70B</span><span>Groq</span><span>GLiNER</span><span>spaCy</span><span>NetworkX</span><span>Angular</span><span>MongoDB</span></div>
           </div>
         </aside>
       </div>
 
-      <nav class="d-next" aria-label="More projects">
-        <a href="project-commit-qa.html"><small><span aria-hidden="true">←</span> Previous project</small><span>Commit History Q&amp;A</span></a>
-        <a href="project-pr-decomposition.html" class="next"><small>Next project <span aria-hidden="true">→</span></small><span>Toward AI-Assisted Decomposition of Large Pull Requests</span></a>
+      <nav class="d-next" aria-label="More projects" data-i18n-aria="aria.more">
+        <a href="project-commit-qa.html"><small><span aria-hidden="true">←</span> <span data-i18n="pp.prev">Previous project</span></small><span data-i18n="p.prevTitle">Commit History Q&amp;A</span></a>
+        <a href="project-pr-decomposition.html" class="next"><small><span data-i18n="pp.next">Next project</span> <span aria-hidden="true">→</span></small><span data-i18n="p.nextTitle">Toward AI-Assisted Decomposition of Large Pull Requests</span></a>
       </nav>
     </div>
   </main>
 
   <footer class="footer">
     <div class="container footer-inner">
-      <p class="muted">© <span id="year"></span> Soulaima Sellemi · Built with HTML, CSS &amp; JS · Hosted for free</p>
-      <a href="#main" class="muted">Back to top <span aria-hidden="true">↑</span></a>
+      <p class="muted">© <span id="year"></span> Soulaima Sellemi · <span data-i18n="footer.built">Built with HTML, CSS &amp; JS · Hosted for free</span></p>
+      <a href="#main" class="muted"><span data-i18n="footer.top">Back to top</span> <span aria-hidden="true">↑</span></a>
     </div>
   </footer>
 
+  <script>window.PAGE_FR = {"p.problem0": "Le tri automatique des CV est souvent une boîte noire : le candidat reçoit un score sans explication, et des biais cachés peuvent s’y glisser.", "p.problem1": "Ce projet rend chaque étape <strong>explicable<\/strong>, relie chaque compétence retenue à une preuve dans le CV, et ajoute une vérification dédiée des biais avant de produire le rapport.", "p.stepT0": "Graphe des compétences du poste", "p.stepD0": "Extraction des compétences requises avec <strong>GLiNER<\/strong> et un LLM, puis liaison des compétences proches dans un graphe NetworkX.", "p.stepT1": "Audit du CV fondé sur des preuves", "p.stepD1": "Recherche de preuves concrètes de chaque compétence dans le CV, au lieu d’un simple appariement de mots-clés.", "p.stepT2": "Score à base de règles", "p.stepD2": "Calcul du score avec des règles transparentes, pour que le chiffre puisse être expliqué.", "p.stepT3": "Auditeur LLM des biais", "p.stepD3": "Un LLM distinct relit l’évaluation pour repérer d’éventuels biais.", "p.stepT4": "Rapport", "p.stepD4": "Production d’un rapport lisible, dans une application web avec un front-end <strong>Angular<\/strong> et un stockage <strong>MongoDB<\/strong>.", "p.fk0": "Années", "p.fv0": "2025 – 2026", "p.fk1": "Type", "p.fv1": "Pipeline LLM + application web", "p.fk2": "Modèle principal", "p.fv2": "Llama 3.3 70B (Groq)", "p.fk3": "Front-end", "p.fv3": "Angular", "p.fk4": "Stockage", "p.fv4": "MongoDB", "p.m0": "points d’erreur avec Llama 3.3 70B", "p.m1": "paires CV-offre évaluées (jusqu’à)", "p.m2": "LLM comparés : Gemma 3 4B, Llama 3.1 8B, Llama 3.3 70B", "p.mtext": "J’ai comparé trois modèles avec la méthode <strong>LLM-as-a-judge<\/strong> sur jusqu’à 500 paires CV-offre. Le plus grand, Llama 3.3 70B, fait passer l’erreur de 25,7 à 8,2 points.", "p.prevTitle": "Q&R sur l’historique des commits", "p.nextTitle": "Vers une décomposition assistée par IA des grandes pull requests", "p.kicker": "2025 – 2026 · Pipeline LLM", "p.title": "Matching CV-offre explicable avec audit des biais", "p.lead": "Associe un CV à une offre d’emploi en justifiant chaque décision, puis fait vérifier le résultat par un auditeur LLM indépendant pour détecter les biais.", "p.learned": "Comment concevoir des pipelines LLM en plusieurs étapes dont chaque étape est vérifiable, comment évaluer des sorties de LLM à grande échelle avec LLM-as-a-judge, et comment la taille du modèle se compare à la qualité."};</script>
+  <script src="i18n.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

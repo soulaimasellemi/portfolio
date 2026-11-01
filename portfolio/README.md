@@ -10,7 +10,8 @@ portfolio/
 ├── project-*.html                  ← one page per project
 ├── assets/projects/*.svg           ← project images (replace with screenshots)
 ├── style.css                       ← colors, fonts, layout
-├── script.js                       ← dark/light mode, menu, contact form
+├── script.js                       ← dark/light mode, menu, badge, filters, contact form
+├── i18n.js                         ← French translations (edit French text here)
 └── assets/Soulaima_Sellemi_CV.pdf  ← the CV behind "Download CV"
 ```
 
@@ -41,6 +42,10 @@ Without a key, the form opens the visitor's email app, so it already works. To r
 1. Go to https://web3forms.com, enter `soulaima.sellemi@ensi-uma.tn` and create an access key (free).
 2. Open `script.js` and paste it: `const WEB3FORMS_ACCESS_KEY = "your-key-here";`
 3. Commit the change.
+
+## Edit the French version
+
+The pages are written in English. Every translated element has a `data-i18n="key"` attribute, and its French text is in `i18n.js` under the same key. Project pages keep their French text in `window.PAGE_FR` near the bottom of each `project-*.html` file.
 
 ## Things to update
 
