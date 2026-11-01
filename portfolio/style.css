@@ -687,5 +687,5 @@ button.btn-ghost { background: transparent; color: var(--text); }
 .mark img { opacity: 0; }
 .mark img.ok { opacity: 1; }
 /* NVIDIA tile fills the whole circle */
-.mark img[src$="nvidia.png"] { padding: 0; object-fit: cover; }
+.mark img[src$="nvidia.png"], .mark img[src$="coursera.png"] { padding: 0; object-fit: cover; }
 .mark img[src$="talan.png"] { padding: 3px; }
