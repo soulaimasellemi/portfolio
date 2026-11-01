@@ -628,3 +628,25 @@ button.btn-ghost { background: transparent; color: var(--text); }
   .logo-full { animation: none; max-width: 240px; opacity: 1; }
   .spin-ring { animation: none; }
 }
+
+/* badge back: contact card (no results) */
+.id-back-title { font-size: 1.3rem; font-weight: 800; letter-spacing: -0.02em; color: var(--text); margin-top: 8px; }
+.id-contact { display: flex; flex-direction: column; gap: 9px; margin-top: 4px; }
+.id-contact div { padding-bottom: 8px; border-bottom: 1px dashed var(--border); }
+.id-contact div:last-child { border-bottom: 0; padding-bottom: 0; }
+.id-contact dt { font: 600 10px "JetBrains Mono", monospace; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+.id-contact dd { font-size: 13px; font-weight: 500; color: var(--text); overflow-wrap: anywhere; }
+@media (max-width: 420px) {
+  .id-contact { gap: 6px; }
+  .id-contact div { padding-bottom: 5px; }
+  .id-back-title { font-size: 1.15rem; margin-top: 4px; }
+}
+.id-back { padding-bottom: 16px; }
+.id-contact { gap: 8px; }
+.id-contact div { padding-bottom: 7px; }
+@media (max-width: 420px) {
+  .id-back .id-head { font-size: 9.5px; }
+  .id-contact { gap: 4px; }
+  .id-contact div { padding-bottom: 4px; }
+  .id-contact dd { font-size: 12px; }
+}

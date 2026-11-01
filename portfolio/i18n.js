@@ -36,11 +36,11 @@
     "badge.role": "Élève ingénieure en IA",
     "badge.focus": "Agents LLM · RAG · Deep learning",
     "badge.open": "Ouverte au PFE",
-    "badge.r1": "Décomposition de PR",
-    "badge.r2": "Segmentation de lésions cutanées",
-    "badge.r2v": "97,0 % Dice",
-    "badge.r3": "Changements Gerrit analysés",
-    "badge.r4": "Erreur matching CV-offre",
+    "badge.connect": "Restons en contact",
+    "badge.city": "Basée à",
+    "badge.cityV": "Manouba, Tunisie",
+    "badge.langs": "Langues",
+    "badge.langsV": "Arabe · Français · Anglais",
     "badge.hint": "ou faites-le balancer",
 
     /* stats */
