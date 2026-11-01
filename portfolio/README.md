@@ -12,6 +12,7 @@ portfolio/
 ├── style.css                       ← colors, fonts, layout
 ├── script.js                       ← dark/light mode, menu, badge, filters, contact form
 ├── i18n.js                         ← French translations (edit French text here)
+├── functions/api/contact.js        ← sends contact-form emails (key kept secret in Cloudflare)
 └── assets/Soulaima_Sellemi_CV.pdf  ← the CV behind "Download CV"
 ```
 
@@ -35,13 +36,22 @@ Every time you change a file on GitHub, the site updates automatically within a 
 
 Every `git push` (or edit on GitHub) redeploys automatically.
 
-## Turn on the contact form (free, 2 minutes)
+## Turn on the contact form (free, key stays private)
 
-Without a key, the form opens the visitor's email app, so it already works. To receive messages directly in your inbox:
+The form sends messages to `/api/contact`, a small Cloudflare Pages Function in `functions/api/contact.js`.
+It emails you through **Resend** (free: 3,000 emails/month). The Resend key is stored as a **secret in Cloudflare**,
+so it never appears in your code, on GitHub, or on the website.
 
-1. Go to https://web3forms.com, enter `soulaima.sellemi@ensi-uma.tn` and create an access key (free).
-2. Open `script.js` and paste it: `const WEB3FORMS_ACCESS_KEY = "your-key-here";`
-3. Commit the change.
+1. Sign up at https://resend.com with the email where you want to receive messages.
+2. In Resend, open **API Keys → Create API key** (permission: Sending access). Copy it (starts with `re_`).
+3. In Cloudflare: **Workers & Pages → your project → Settings → Variables and Secrets → Add**:
+   - `RESEND_API_KEY` = your key, type **Secret** (Encrypt)
+   - `CONTACT_TO` = the same email you used for Resend
+   Add them for **Production**.
+4. Make sure the `functions` folder is in your GitHub repo, next to `index.html`.
+5. Redeploy (Deployments → latest → Retry deployment), then send yourself a test message.
+
+Until this is set up, the form opens the visitor's email app instead, so it always works.
 
 ## Edit the French version
 

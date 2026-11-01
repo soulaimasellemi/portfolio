@@ -1,10 +1,12 @@
 /* ===================================================
-   CONFIG — paste your free Web3Forms access key here
-   (get it at https://web3forms.com, see README step 4)
-   Leave it empty and the form will open the visitor's
-   email app instead, so it still works.
+   CONTACT FORM — messages go to /api/contact, a small
+   Cloudflare Pages Function (functions/api/contact.js).
+   The email API key is stored as a SECRET in Cloudflare,
+   never in this file or on GitHub (see README).
+   If the function isn't set up yet, the form opens the
+   visitor's email app instead, so it still works.
    =================================================== */
-const WEB3FORMS_ACCESS_KEY = "";
+const CONTACT_ENDPOINT = "/api/contact";
 const MY_EMAIL = "soulaima.sellemi@ensi-uma.tn";
 
 /* ---------- Theme (dark / light) ---------- */
@@ -90,33 +92,33 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
 const form = document.getElementById("contactForm");
 const statusEl = document.getElementById("formStatus");
 
+function openMailApp(data) {
+  const subject = encodeURIComponent("Portfolio contact from " + data.get("name"));
+  const body = encodeURIComponent(data.get("message") + "\n\n— " + data.get("name") + " (" + data.get("email") + ")");
+  window.location.href = `mailto:${MY_EMAIL}?subject=${subject}&body=${body}`;
+  statusEl.textContent = t("mailApp") + MY_EMAIL + ".";
+}
+
 if (form) form.addEventListener("submit", async e => {
   e.preventDefault();
   const data = new FormData(form);
-
-  // No key yet → fall back to the visitor's email app
-  if (!WEB3FORMS_ACCESS_KEY) {
-    const subject = encodeURIComponent("Portfolio contact from " + data.get("name"));
-    const body = encodeURIComponent(data.get("message") + "\n\n— " + data.get("name") + " (" + data.get("email") + ")");
-    window.location.href = `mailto:${MY_EMAIL}?subject=${subject}&body=${body}`;
-    statusEl.textContent = t("mailApp") + MY_EMAIL + ".";
-    return;
-  }
-
-  data.append("access_key", WEB3FORMS_ACCESS_KEY);
-  data.append("subject", "New message from your portfolio");
+  const btn = form.querySelector('button[type="submit"]');
   statusEl.textContent = t("sending");
+  if (btn) btn.disabled = true;
   try {
-    const res = await fetch("https://api.web3forms.com/submit", { method: "POST", body: data });
-    const json = await res.json();
-    if (json.success) {
-      statusEl.textContent = t("sent");
-      form.reset();
-    } else {
-      statusEl.textContent = t("failed");
-    }
+    const res = await fetch(CONTACT_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(Object.fromEntries(data)),
+    });
+    if (res.status === 404 || res.status === 405) { openMailApp(data); return; } // function not deployed yet
+    const json = await res.json().catch(() => ({}));
+    if (res.ok && json.ok) { statusEl.textContent = t("sent"); form.reset(); }
+    else { statusEl.textContent = t("failed"); }
   } catch (err) {
-    statusEl.textContent = t("network") + MY_EMAIL;
+    openMailApp(data); // offline or no server (e.g. opened as a local file)
+  } finally {
+    if (btn) btn.disabled = false;
   }
 });
 
