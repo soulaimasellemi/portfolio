@@ -325,3 +325,10 @@ if (form) form.addEventListener("submit", async e => {
   let rt;
   window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => { layout(); draw(); }, 150); });
 })();
+
+/* ---------- Issuer logos: show when the file exists, otherwise keep initials ---------- */
+document.querySelectorAll(".mark img").forEach(img => {
+  const ok = () => { if (img.naturalWidth > 0) img.classList.add("ok"); else img.remove(); };
+  if (img.complete) ok();
+  else { img.addEventListener("load", ok); img.addEventListener("error", () => img.remove()); }
+});

@@ -650,3 +650,42 @@ button.btn-ghost { background: transparent; color: var(--text); }
   .id-contact div { padding-bottom: 4px; }
   .id-contact dd { font-size: 12px; }
 }
+
+/* ---- Certifications & activities ---- */
+.beyond-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; align-items: start; }
+.panel { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; }
+.panel-head { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.panel-head h3 { font-size: 1.15rem; letter-spacing: -0.01em; }
+.panel-icon { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; background: var(--accent-soft); color: var(--accent); }
+.panel-count { margin-left: auto; font-size: 12px; color: var(--muted); padding: 3px 9px; border: 1px solid var(--border); border-radius: 999px; }
+.items { list-style: none; display: flex; flex-direction: column; }
+.items li {
+  display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; gap: 14px; align-items: center;
+  padding: 12px 8px; border-radius: 12px; transition: background 0.2s;
+}
+.items li + li { border-top: 1px solid var(--border); }
+.items li:hover { background: var(--bg-soft); }
+.mark {
+  display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%;
+  background: var(--bg-soft); border: 1px solid var(--border); color: var(--accent);
+  font: 700 13px "JetBrains Mono", monospace; letter-spacing: 0.02em;
+}
+.mark svg { width: 20px; height: 20px; }
+.items strong { display: block; font-size: 15px; line-height: 1.35; }
+.items div span { font-size: 13.5px; color: var(--muted); }
+.year { font-size: 12px; padding: 4px 10px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); white-space: nowrap; }
+@media (max-width: 900px) { .beyond-grid { grid-template-columns: 1fr; } }
+@media (max-width: 420px) {
+  .panel { padding: 18px 14px; }
+  .items li { grid-template-columns: 38px minmax(0, 1fr); gap: 12px; }
+  .mark { width: 38px; height: 38px; }
+  .year { grid-column: 2; justify-self: start; }
+}
+/* official issuer logo covers the initials when the file exists */
+.mark { position: relative; overflow: hidden; }
+.mark img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; padding: 7px; background: #fff; border-radius: 50%; }
+.mark img { opacity: 0; }
+.mark img.ok { opacity: 1; }
+/* NVIDIA tile fills the whole circle */
+.mark img[src$="nvidia.png"] { padding: 0; object-fit: cover; }
+.mark img[src$="talan.png"] { padding: 3px; }

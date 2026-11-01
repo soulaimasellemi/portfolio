@@ -118,6 +118,15 @@
     "skills.a3": "<strong>Membre</strong> — Junior Entreprise de l’ENSI <span class=\"muted\">· 2024–2025</span>",
     "skills.a4": "<strong>Membre</strong> — Club de programmation compétitive de l’ENSI <span class=\"muted\">· 2024–2025</span>",
 
+    "nav.beyond": "Certifications",
+    "beyond.eyebrow": "Au-delà du labo",
+    "beyond.title": "Certifications et activités",
+    "beyond.member": "Membre",
+    "beyond.a1": "Trésorière, bureau exécutif",
+    "beyond.a1o": "Association Robotique de l’ENSI",
+    "beyond.a3o": "Junior Entreprise de l’ENSI",
+    "beyond.a4o": "Club de programmation compétitive de l’ENSI",
+
     /* contact */
     "contact.eyebrow": "Parlons-en",
     "contact.title": "Me contacter",
